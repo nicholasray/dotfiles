@@ -96,6 +96,8 @@ let g:airline_theme = 'base16'
 
 " Nerdtree
 nmap <leader>ne :NERDTree<cr>
+" show hidden files
+let NERDTreeShowHidden=1
 
 " Use The Silver Searcher https://github.com/ggreer/the_silver_searcher
 if executable('ag')
@@ -119,6 +121,9 @@ let g:deoplete#enable_at_startup = 1
 autocmd CompleteDone * pclose!
 " tab-complete
 inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
+" javscript completion
+let g:tern_request_timeout = 1
+let g:tern_show_signature_in_pum = '0'  " This do disable full signature type on autocomplete
 
 " Vim-go
 let g:go_highlight_functions = 1
