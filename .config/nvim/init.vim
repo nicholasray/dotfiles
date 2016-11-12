@@ -1,7 +1,7 @@
 " Leader
 let mapleader = " "
 
-set clipboard=unnamed
+set clipboard+=unnamedplus
 set backspace=2   " Backspace deletes like most programs in insert mode
 set nobackup
 set nowritebackup
@@ -101,6 +101,8 @@ let NERDTreeShowHidden=1
 " open nerdtree automatically when vim starts if no files were specified
 autocmd StdinReadPre * let s:std_in=1
 autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+" expand all directories regardless if they have a single child
+let NERDTreeCascadeSingleChildDir=0
 
 " Use The Silver Searcher https://github.com/ggreer/the_silver_searcher
 if executable('ag')
