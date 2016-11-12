@@ -118,7 +118,7 @@ if executable('ag')
 endif
 
 " Turn off search highlighting easily
-nnoremap <Leader><space> :noh<cr>
+nnoremap <Leader>j :noh<cr>
 
 " Deoplete
 let g:deoplete#enable_at_startup = 1
