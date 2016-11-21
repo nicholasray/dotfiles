@@ -35,6 +35,7 @@ alias neo="cd ~/.config/nvim"
 
 # Dev
 alias dev="cd ~/Development"
+alias nray-go="cd ~/Development/go/src/github.com/nicholasray"
 
 # Unix
 alias ll="ls -al"
