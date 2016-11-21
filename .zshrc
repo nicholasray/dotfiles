@@ -1,6 +1,8 @@
 export VISUAL=nvim
 export EDITOR=$VISUAL
 
+bindkey '^R' history-incremental-search-backward
+
 # modify the prompt to contain git branch name if applicable
 git_prompt_info() {
   ref=$(git symbolic-ref HEAD 2> /dev/null)
