@@ -3,3 +3,4 @@
 .env
 .tern-port
 .config/*
+!.config/nvim
