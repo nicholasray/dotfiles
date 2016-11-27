@@ -2,3 +2,4 @@
 .byebug_history
 .env
 .tern-port
+.config/*

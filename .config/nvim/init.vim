@@ -141,6 +141,9 @@ let g:go_fmt_command = "goimports"
 
 autocmd FileType go setlocal nolist
 
+let g:syntastic_go_checkers = ['go']
+let g:go_list_type = "quickfix"
+
 " Vim-test
 nmap <silent> <leader>t :TestNearest<CR>
 nmap <silent> <leader>T :TestFile<CR>
@@ -148,3 +151,7 @@ nmap <silent> <leader>a :TestSuite<CR>
 nmap <silent> <leader>l :TestLast<CR>
 nmap <silent> <leader>g :TestVisit<CR>
 let test#strategy = "neovim"
+
+" Undo / Redo
+set undofile
+set undodir=~/.config/undo/
