@@ -24,23 +24,23 @@
 
 [submodule "nerdtree"]
   path = .config/nvim/bundle/nerdtree
-  url = https://github.com/scrooloose/nerdtree.git
+  url = git@github.com:scrooloose/nerdtree.git
 
 [submodule "syntastic"]
   path = .config/nvim/bundle/syntastic
-  url = https://github.com/scrooloose/syntastic.git
+  url = git@github.com:scrooloose/syntastic.git
 
 [submodule "vim-airline"]
   path = .config/nvim/bundle/vim-airline
-  url = https://github.com/vim-airline/vim-airline
+  url = git@github.com:vim-airline/vim-airline
 
 [submodule "vim-airline-themes"]
   path = .config/nvim/bundle/vim-airline-themes
-  url = https://github.com/vim-airline/vim-airline-themes
+  url = git@github.com:vim-airline/vim-airline-themes
 
 [submodule "vim-colors-github"]
   path = .config/nvim/bundle/vim-colors-github
-  url = https://github.com/vim-airline/vim-colors-github
+  url = git@github.com:vim-airline/vim-colors-github
 
 [submodule "vim-commentary"]
   path = .config/nvim/bundle/vim-commentary
@@ -68,7 +68,7 @@
 
 [submodule "vim-pug"]
   path = .config/nvim/bundle/vim-pug
-  url = git://github.com/digitaltoad/vim-pug.git
+  url = git@github.com:digitaltoad/vim-pug.git
 
 [submodule "vim-surround"]
   path = .config/nvim/bundle/vim-surround
