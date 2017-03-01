@@ -40,7 +40,7 @@
 
 [submodule "vim-colors-github"]
   path = .config/nvim/bundle/vim-colors-github
-  url = git@github.com:vim-airline/vim-colors-github
+  url = git@github.com:acarapetis/vim-colors-github.git
 
 [submodule "vim-commentary"]
   path = .config/nvim/bundle/vim-commentary
