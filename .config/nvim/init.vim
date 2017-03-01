@@ -42,6 +42,7 @@ set nojoinspaces
 
 " Make it obvious where 80 characters is
 set textwidth=80
+autocmd bufreadpre *.pug setlocal textwidth=0
 set colorcolumn=+1
 
 " Numbers
