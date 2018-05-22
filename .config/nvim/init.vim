@@ -156,3 +156,6 @@ let test#strategy = "neovim"
 " Undo / Redo
 set undofile
 set undodir=~/.config/undo/
+
+" Spell check markdown
+autocmd BufRead,BufNewFile *.md setlocal spell
