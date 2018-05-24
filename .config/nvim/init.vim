@@ -123,13 +123,16 @@ nnoremap <Leader>j :noh<cr>
 
 " Deoplete
 let g:deoplete#enable_at_startup = 1
-" clost preview after completion
+let g:deoplete#file#enable_buffer_path = 1
+let g:deoplete#sources#ternjs#types = 1
+
+inoremap <expr> <C-j> pumvisible() ? "\<C-n>" : "\<C-j>"
+inoremap <expr> <C-k> pumvisible() ? "\<C-p>" : "\<C-k>"
+
+" close preview after completion
 autocmd CompleteDone * pclose!
 " tab-complete
 inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
-" javscript completion
-let g:tern_request_timeout = 1
-let g:tern_show_signature_in_pum = '0'  " This do disable full signature type on autocomplete
 
 " Vim-go
 let g:go_highlight_functions = 1
@@ -145,17 +148,15 @@ autocmd FileType go setlocal nolist
 let g:syntastic_go_checkers = ['go']
 let g:go_list_type = "quickfix"
 
-" Vim-test
-nmap <silent> <leader>t :TestNearest<CR>
-nmap <silent> <leader>T :TestFile<CR>
-nmap <silent> <leader>a :TestSuite<CR>
-nmap <silent> <leader>l :TestLast<CR>
-nmap <silent> <leader>g :TestVisit<CR>
-let test#strategy = "neovim"
-
 " Undo / Redo
 set undofile
 set undodir=~/.config/undo/
 
 " Spell check markdown
 autocmd BufRead,BufNewFile *.md setlocal spell
+
+" Enable Mouse Operability in Neovim
+set mouse=a
+
+" Prevent Ag from opening first result
+ca Ag Ag!

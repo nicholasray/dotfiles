@@ -1,8 +1,8 @@
 # This is Git's per-user configuration file.
 [user]
 # Please adapt and uncomment the following lines:
-  name = Nicholas Ray
-  email = nrayemail@gmail.com
+  name = Nick Ray
+  email = nick@underbelly.is
 [push]
   default = current
 [color]
@@ -18,9 +18,3 @@
   prune = true
 [rebase]
   autosquash = true
-[difftool "sourcetree"]
-	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
-	path = 
-[mergetool "sourcetree"]
-	cmd = /Applications/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
-	trustExitCode = true

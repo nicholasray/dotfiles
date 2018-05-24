@@ -20,11 +20,6 @@ colors
 # enable colored output from ls, etc. on FreeBSD-based systems
 export CLICOLOR=1
 
-# chruby
-source /usr/local/opt/chruby/share/chruby/chruby.sh
-# enables chruby autoswitching of rubies specified by .ruby-version files
-source /usr/local/opt/chruby/share/chruby/auto.sh
-
 # history settings
 setopt hist_ignore_all_dups inc_append_history
 HISTFILE=~/.zhistory
