@@ -28,11 +28,9 @@ SAVEHIST=4096
 
 # Aliases
 alias vim=nvim
-alias neo="cd ~/.config/nvim"
 
 # Dev
 alias dev="cd ~/Development"
-alias nray-go="cd ~/Development/go/src/github.com/nicholasray"
 
 # Unix
 alias ll="ls -al"
@@ -53,3 +51,11 @@ export PATH="/usr/local/bin:$PATH"
 # tabtab source for sls package
 # uninstall by removing these lines or running `tabtab uninstall sls`
 [[ -f /usr/local/lib/node_modules/serverless/node_modules/tabtab/.completions/sls.zsh ]] && . /usr/local/lib/node_modules/serverless/node_modules/tabtab/.completions/sls.zsh
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+# Chruby 
+source /usr/local/opt/chruby/share/chruby/chruby.sh
+source /usr/local/opt/chruby/share/chruby/auto.sh

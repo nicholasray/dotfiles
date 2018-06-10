@@ -1,3 +1,33 @@
+" setting up vim-plug
+call plug#begin('~/.local/share/nvim/plugged')
+
+Plug 'rking/ag.vim'
+Plug 'kien/ctrlp.vim'
+" provides insert mode auto-completion for quotes, parens, brackets, etc.
+Plug 'Raimondi/delimitMate'
+Plug 'zchee/deoplete-go'
+Plug 'carlitux/deoplete-ternjs'
+Plug 'Shougo/deoplete.nvim'
+Plug 'scrooloose/nerdtree'
+Plug 'vim-syntastic/syntastic'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-endwise'
+Plug 'tpope/vim-fugitive'
+Plug 'fatih/vim-go'
+Plug 'rhysd/vim-grammarous'
+Plug 'pangloss/vim-javascript'
+Plug 'mxw/vim-jsx'
+Plug 'moll/vim-node'
+Plug 'prettier/vim-prettier'
+Plug 'digitaltoad/vim-pug'
+Plug 'tpope/vim-surround'
+Plug 'acarapetis/vim-colors-github'
+
+" Initialize plugin system
+call plug#end()
+
 " Leader
 let mapleader = " "
 
@@ -25,6 +55,9 @@ set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
 
 let g:syntastic_check_on_open = 1
+
+" Flow
+let g:javascript_plugin_flow = 1
 
 filetype plugin indent on
 
@@ -86,8 +119,8 @@ nnoremap <C-k> <C-w>k
 nnoremap <C-h> <C-w>h
 nnoremap <C-l> <C-w>l
 
-" Pathogen
-execute pathogen#infect()
+" Use true colors
+set termguicolors
 
 " Color scheme
 colorscheme github
@@ -160,3 +193,8 @@ set mouse=a
 
 " Prevent Ag from opening first result
 ca Ag Ag!
+
+" Prettier stuff
+let g:prettier#autoformat = 0
+autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.graphql,*.md,*.vue PrettierAsync
+
