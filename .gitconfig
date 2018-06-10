@@ -2,7 +2,7 @@
 [user]
 # Please adapt and uncomment the following lines:
   name = Nick Ray
-  email = nick@underbelly.is
+  email = nray@nray.io
 [push]
   default = current
 [color]
@@ -18,9 +18,3 @@
   prune = true
 [rebase]
   autosquash = true
-[difftool "sourcetree"]
-	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
-	path = 
-[mergetool "sourcetree"]
-	cmd = /Applications/Sourcetree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
-	trustExitCode = true
