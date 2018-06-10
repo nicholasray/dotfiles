@@ -24,6 +24,7 @@ Plug 'prettier/vim-prettier'
 Plug 'digitaltoad/vim-pug'
 Plug 'tpope/vim-surround'
 Plug 'acarapetis/vim-colors-github'
+Plug 'fatih/vim-go'
 
 " Initialize plugin system
 call plug#end()
@@ -197,4 +198,3 @@ ca Ag Ag!
 " Prettier stuff
 let g:prettier#autoformat = 0
 autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.graphql,*.md,*.vue PrettierAsync
-
