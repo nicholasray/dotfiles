@@ -2,7 +2,7 @@
 call plug#begin('~/.local/share/nvim/plugged')
 
 Plug 'rking/ag.vim'
-Plug 'kien/ctrlp.vim'
+Plug 'ctrlpvim/ctrlp.vim'
 " provides insert mode auto-completion for quotes, parens, brackets, etc.
 Plug 'Raimondi/delimitMate'
 Plug 'zchee/deoplete-go'
@@ -25,6 +25,11 @@ Plug 'digitaltoad/vim-pug'
 Plug 'tpope/vim-surround'
 Plug 'acarapetis/vim-colors-github'
 Plug 'fatih/vim-go'
+Plug 'Xuyuanp/nerdtree-git-plugin' " Show git status in NerdTree
+Plug 'google/vim-searchindex'
+Plug 'tpope/vim-sleuth'
+Plug '/usr/local/opt/fzf'
+Plug 'junegunn/fzf.vim'
 
 " Initialize plugin system
 call plug#end()
@@ -69,7 +74,7 @@ set shiftround
 set expandtab
 
 " Display extra whitespace
-set list listchars=tab:»·,trail:·,nbsp:·
+set listchars=tab:»·,trail:·,nbsp:·
 
 " Use one space, not two, after punctuation.
 set nojoinspaces
@@ -150,7 +155,11 @@ if executable('ag')
 
   " ag is fast enough that CtrlP doesn't need to cache
   let g:ctrlp_use_caching = 0
+
 endif
+
+" don't set max files in ctrlp
+let g:ctrlp_max_files=0
 
 " Turn off search highlighting easily
 nnoremap <Leader>j :noh<cr>
