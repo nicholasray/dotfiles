@@ -10,8 +10,6 @@ Plug 'carlitux/deoplete-ternjs'
 Plug 'Shougo/deoplete.nvim'
 Plug 'scrooloose/nerdtree'
 Plug 'vim-syntastic/syntastic'
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-endwise'
 Plug 'tpope/vim-fugitive'
@@ -29,6 +27,7 @@ Plug 'google/vim-searchindex'
 Plug 'tpope/vim-sleuth'
 Plug '/usr/local/opt/fzf'
 Plug 'junegunn/fzf.vim'
+Plug 'itchyny/lightline.vim'
 
 " Initialize plugin system
 call plug#end()
@@ -130,8 +129,11 @@ set termguicolors
 " Color scheme
 colorscheme github
 
-" Airline settings
-let g:airline_theme = 'base16'
+" Lightline colorscheme
+let g:lightline = {
+      \ 'colorscheme': 'powerline',
+      \ }
+
 
 " Nerdtree
 nmap <leader>ne :NERDTree<cr>
