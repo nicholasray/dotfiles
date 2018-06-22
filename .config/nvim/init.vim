@@ -25,7 +25,6 @@ Plug 'digitaltoad/vim-pug'
 Plug 'tpope/vim-surround'
 Plug 'acarapetis/vim-colors-github'
 Plug 'fatih/vim-go'
-Plug 'Xuyuanp/nerdtree-git-plugin' " Show git status in NerdTree
 Plug 'google/vim-searchindex'
 Plug 'tpope/vim-sleuth'
 Plug '/usr/local/opt/fzf'
