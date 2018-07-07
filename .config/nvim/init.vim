@@ -2,8 +2,6 @@
 call plug#begin('~/.local/share/nvim/plugged')
 
 Plug 'rking/ag.vim'
-Plug 'ctrlpvim/ctrlp.vim'
-" provides insert mode auto-completion for quotes, parens, brackets, etc.
 Plug 'Raimondi/delimitMate'
 Plug 'zchee/deoplete-go'
 Plug 'carlitux/deoplete-ternjs'
@@ -71,7 +69,7 @@ set shiftwidth=2
 set shiftround
 set expandtab
 
-" Display extra whitespace
+" Display extra whitespace on command
 set listchars=tab:»·,trail:·,nbsp:·
 
 " Use one space, not two, after punctuation.
@@ -129,11 +127,31 @@ set termguicolors
 " Color scheme
 colorscheme github
 
-" Lightline colorscheme
 let g:lightline = {
-      \ 'colorscheme': 'powerline',
-      \ }
+  \   'active': {
+  \     'left':[ [ 'mode', 'paste' ],
+  \              [ 'gitbranch', 'readonly', 'filename', 'modified' ]
+  \     ]
+  \   },
+  \   'component_function': {
+  \     'filename': 'FilenameForLightline',
+  \     'gitbranch': 'fugitive#head',
+  \     'fileformat': 'LightlineFileformat',
+  \     'filetype': 'LightlineFiletype'
+  \   }
+  \ }
 
+function! LightlineFileformat()
+  return winwidth(0) > 70 ? &fileformat : ''
+endfunction
+
+function! LightlineFiletype()
+  return winwidth(0) > 70 ? (&filetype !=# '' ? &filetype : 'no ft') : ''
+endfunction
+
+function! FilenameForLightline()
+  return expand('%')
+endfunction
 
 " Nerdtree
 nmap <leader>ne :NERDTree<cr>
@@ -147,20 +165,28 @@ let NERDTreeCascadeSingleChildDir=0
 
 " Use The Silver Searcher https://github.com/ggreer/the_silver_searcher
 if executable('ag')
-
   " Use Ag over Grep
   set grepprg=ag\ --nogroup\ --nocolor
-
-  " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
-  let g:ctrlp_user_command = 'ag -Q -l --nocolor --hidden -g "" %s'
-
-  " ag is fast enough that CtrlP doesn't need to cache
-  let g:ctrlp_use_caching = 0
-
 endif
 
-" don't set max files in ctrlp
-let g:ctrlp_max_files=0
+" Customize fzf colors to match your color scheme
+let g:fzf_colors =
+\ { 'fg':      ['fg', 'Normal'],
+  \ 'bg':      ['bg', 'Normal'],
+  \ 'hl':      ['fg', 'Comment'],
+  \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
+  \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
+  \ 'hl+':     ['fg', 'Statement'],
+  \ 'info':    ['fg', 'PreProc'],
+  \ 'border':  ['fg', 'Ignore'],
+  \ 'prompt':  ['fg', 'Conditional'],
+  \ 'pointer': ['fg', 'Exception'],
+  \ 'marker':  ['fg', 'Keyword'],
+  \ 'spinner': ['fg', 'Label'],
+  \ 'header':  ['fg', 'Comment'] }
+
+" Make FZF behave like ctrl-p
+nnoremap <C-p> :FZF<cr>
 
 " Turn off search highlighting easily
 nnoremap <Leader>j :noh<cr>
@@ -206,5 +232,5 @@ set mouse=a
 ca Ag Ag!
 
 " Prettier stuff
-let g:prettier#autoformat = 0
-autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.graphql,*.md,*.vue PrettierAsync
+" let g:prettier#autoformat = 0
+" autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.graphql,*.md,*.vue PrettierAsync
