@@ -128,6 +128,7 @@ set termguicolors
 colorscheme github
 
 let g:lightline = {
+  \   'colorscheme': 'powerline_custom',
   \   'active': {
   \     'left':[ [ 'mode', 'paste' ],
   \              [ 'gitbranch', 'readonly', 'filename', 'modified' ]
