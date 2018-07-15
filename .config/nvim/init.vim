@@ -26,6 +26,7 @@ Plug 'tpope/vim-sleuth'
 Plug '/usr/local/opt/fzf'
 Plug 'junegunn/fzf.vim'
 Plug 'itchyny/lightline.vim'
+Plug 'godlygeek/tabular'
 
 " Initialize plugin system
 call plug#end()
@@ -82,6 +83,9 @@ set nojoinspaces
 set textwidth=80
 autocmd bufreadpre *.pug setlocal textwidth=0
 set colorcolumn=+1
+
+" Make git commit messages be 72 characters wide
+au FileType gitcommit set tw=72
 
 " Numbers
 set number
@@ -238,3 +242,6 @@ ca Ag Ag!
 " Prettier stuff
 " let g:prettier#autoformat = 0
 " autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.graphql,*.md,*.vue PrettierAsync
+
+" vim-javascript
+let g:javascript_plugin_jsdoc = 1
