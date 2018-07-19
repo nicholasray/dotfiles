@@ -27,6 +27,7 @@ Plug '/usr/local/opt/fzf'
 Plug 'junegunn/fzf.vim'
 Plug 'itchyny/lightline.vim'
 Plug 'godlygeek/tabular'
+Plug 'mustache/vim-mustache-handlebars'
 
 " Initialize plugin system
 call plug#end()
@@ -64,6 +65,8 @@ let g:syntastic_check_on_open = 1
 
 " Flow
 let g:javascript_plugin_flow = 1
+" JSDoc
+let g:javascript_plugin_jsdoc = 1
 
 filetype plugin indent on
 
@@ -243,5 +246,3 @@ ca Ag Ag!
 " let g:prettier#autoformat = 0
 " autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.graphql,*.md,*.vue PrettierAsync
 
-" vim-javascript
-let g:javascript_plugin_jsdoc = 1
