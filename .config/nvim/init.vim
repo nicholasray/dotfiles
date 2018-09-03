@@ -197,7 +197,7 @@ let g:fzf_colors =
   \ 'header':  ['fg', 'Comment'] }
 
 " Make FZF behave like ctrl-p
-nnoremap <C-p> :FZF<cr>
+nnoremap <C-p> :GFiles<cr>
 
 " Turn off search highlighting easily
 nnoremap <Leader>j :noh<cr>
