@@ -4,3 +4,4 @@
 .tern-port
 .config/*
 !.config/nvim
+npm-debug.log
