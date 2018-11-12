@@ -28,6 +28,7 @@ Plug 'junegunn/fzf.vim'
 Plug 'itchyny/lightline.vim'
 Plug 'godlygeek/tabular'
 Plug 'mustache/vim-mustache-handlebars'
+Plug 'w0rp/ale'
 
 " Initialize plugin system
 call plug#end()
@@ -196,7 +197,7 @@ let g:fzf_colors =
   \ 'header':  ['fg', 'Comment'] }
 
 " Make FZF behave like ctrl-p
-nnoremap <C-p> :GFiles<cr>
+nnoremap <C-p> :FZF<cr>
 
 " Turn off search highlighting easily
 nnoremap <Leader>j :noh<cr>
@@ -242,6 +243,12 @@ set mouse=a
 ca Ag Ag!
 
 " Prettier stuff
-" let g:prettier#autoformat = 0
-" autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.graphql,*.md,*.vue PrettierAsync
+let g:prettier#autoformat = 0
+autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.graphql,*.md,*.vue PrettierAsync
 
+" Fix files with prettier, and then ESLint.
+let g:ale_lint_on_save = 1
+let g:ale_lint_on_text_changed = 'never'
+let g:ale_lint_on_enter = 0
+let g:ale_fixers = {'javascript': ['eslint']}
+let g:ale_fix_on_save = 1
