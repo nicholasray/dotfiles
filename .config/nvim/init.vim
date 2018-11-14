@@ -5,7 +5,7 @@ Plug 'rking/ag.vim'
 Plug 'Raimondi/delimitMate'
 Plug 'zchee/deoplete-go'
 Plug 'carlitux/deoplete-ternjs'
-Plug 'Shougo/deoplete.nvim'
+Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'scrooloose/nerdtree'
 Plug 'vim-syntastic/syntastic'
 Plug 'tpope/vim-commentary'
@@ -173,6 +173,8 @@ autocmd StdinReadPre * let s:std_in=1
 autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 " expand all directories regardless if they have a single child
 let NERDTreeCascadeSingleChildDir=0
+" Update NerdTree's cwd every time root dir changes
+let g:NERDTreeChDirMode = 2
 
 " Use The Silver Searcher https://github.com/ggreer/the_silver_searcher
 if executable('ag')
@@ -196,8 +198,20 @@ let g:fzf_colors =
   \ 'spinner': ['fg', 'Label'],
   \ 'header':  ['fg', 'Comment'] }
 
-" Make FZF behave like ctrl-p
-nnoremap <C-p> :FZF<cr>
+" ProjectFiles tries to locate files relative to the git root contained in
+" NerdTree, falling back to the current NerdTree dir if not available
+" see https://github.com/junegunn/fzf.vim/issues/47#issuecomment-160237795
+function! s:find_project_root()
+  let nerd_root = g:NERDTree.ForCurrentTab().getRoot().path.str()
+  let git_root = system('git -C '.shellescape(nerd_root).' rev-parse --show-toplevel 2> /dev/null')[:-2]
+  if strlen(git_root)
+    return git_root
+  endif
+  return nerd_root
+endfunction
+command! ProjectFiles execute 'Files' s:find_project_root()
+" Make FZF behave like ctrl-p and prevent fzf from opening in nerdtree buffer
+nnoremap <silent> <expr> <c-p> (expand('%') =~ 'NERD_tree' ? "\<c-w>\<c-w>" : '').":ProjectFiles\<cr>"
 
 " Turn off search highlighting easily
 nnoremap <Leader>j :noh<cr>

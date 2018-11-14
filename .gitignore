@@ -5,3 +5,4 @@
 .config/*
 !.config/nvim
 npm-debug.log
+*.code-workspace
