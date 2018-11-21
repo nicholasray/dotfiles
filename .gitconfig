@@ -27,3 +27,6 @@
 	trustExitCode = true
 [alias]
 	push-for-review = push origin HEAD:refs/for/master
+[difftool "sourcetree"]
+	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
+	path = 

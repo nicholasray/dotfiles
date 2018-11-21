@@ -3,8 +3,6 @@ call plug#begin('~/.local/share/nvim/plugged')
 
 Plug 'rking/ag.vim'
 Plug 'Raimondi/delimitMate'
-Plug 'zchee/deoplete-go'
-Plug 'carlitux/deoplete-ternjs'
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'scrooloose/nerdtree'
 Plug 'vim-syntastic/syntastic'
@@ -29,6 +27,11 @@ Plug 'itchyny/lightline.vim'
 Plug 'godlygeek/tabular'
 Plug 'mustache/vim-mustache-handlebars'
 Plug 'w0rp/ale'
+Plug 'morhetz/gruvbox'
+Plug 'autozimu/LanguageClient-neovim', {
+    \ 'branch': 'next',
+    \ 'do': 'bash install.sh',
+    \ }
 
 " Initialize plugin system
 call plug#end()
@@ -219,7 +222,6 @@ nnoremap <Leader>j :noh<cr>
 " Deoplete
 let g:deoplete#enable_at_startup = 1
 let g:deoplete#file#enable_buffer_path = 1
-let g:deoplete#sources#ternjs#types = 1
 
 inoremap <expr> <C-j> pumvisible() ? "\<C-n>" : "\<C-j>"
 inoremap <expr> <C-k> pumvisible() ? "\<C-p>" : "\<C-k>"
@@ -266,3 +268,12 @@ let g:ale_lint_on_text_changed = 'never'
 let g:ale_lint_on_enter = 0
 let g:ale_fixers = {'javascript': ['eslint']}
 let g:ale_fix_on_save = 1
+let g:LanguageClient_serverCommands = {
+    \ 'php': [ 'php', '~/Development/php-language-server/vendor/felixfbecker/language-server/bin/php-language-server.php' ],
+    \ 'javascript.jsx': [ 'node', '~/Development/javascript-typescript-langserver/lib/language-server-stdio.js' ]
+    \ }
+let g:LanguageClient_diagnosticsEnable=0 
+
+nnoremap M :call LanguageClient#textDocument_signatureHelp()<CR>
+nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
+nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
