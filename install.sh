@@ -5,18 +5,18 @@ set -e
 
 parent_path="$(pwd)"
 
-function cleanup() {
+function cleanup {
   println "Exiting..."
   exit 1
 }
 
-function println() {
+function println {
   printf "\n%s\n" "$1"
 }
 
 mkdir -p "$HOME/Development"
 
-function install_dotfiles() {
+function install_dotfiles {
   for file in "$parent_path/".*; do
     if [ "$file" == "$parent_path/." ]; then
       continue
