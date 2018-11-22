@@ -31,7 +31,7 @@ function install_dotfiles() {
     fi
 
     local sym_file_name="$( basename $file )" 
-    local sym="$parent_path/$sym_file_name"
+    local sym="$HOME/$sym_file_name"
 
     if [ ! -e $sym ]; then
       # file doesn't already exist
