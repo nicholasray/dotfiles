@@ -270,7 +270,7 @@ let g:ale_fixers = {'javascript': ['eslint']}
 let g:ale_fix_on_save = 1
 let g:LanguageClient_serverCommands = {
     \ 'php': [ 'php', '~/Development/php-language-server/vendor/felixfbecker/language-server/bin/php-language-server.php' ],
-    \ 'javascript.jsx': [ 'node', '~/Development/javascript-typescript-langserver/lib/language-server-stdio.js' ]
+    \ 'javascript.jsx': [ 'node', '~/.nvm/versions/node/v10.13.0/lib/node_modules/javascript-typescript-langserver/lib/language-server-stdio.js' ]
     \ }
 let g:LanguageClient_diagnosticsEnable=0 
 
