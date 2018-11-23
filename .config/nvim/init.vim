@@ -27,7 +27,7 @@ Plug 'w0rp/ale'
 Plug 'morhetz/gruvbox'
 Plug 'ayu-theme/ayu-vim'
 Plug 'mhinz/vim-startify'
-Plug 'yarisgutierrez/ayu-lightline'
+Plug 'heavenshell/vim-jsdoc'
 Plug 'autozimu/LanguageClient-neovim', {
     \ 'branch': 'next',
     \ 'do': 'bash install.sh',
@@ -35,6 +35,7 @@ Plug 'autozimu/LanguageClient-neovim', {
 
 " Initialize plugin system
 call plug#end()
+
 
 " Turn on cursor highlight line
 set cursorline
@@ -180,6 +181,15 @@ function! FilenameForLightline()
   return expand('%')
 endfunction
 
+
+" Open up Startify before NERDTree so that startify will work
+autocmd VimEnter *
+            \   if !argc()
+            \ |   Startify
+            \ |   NERDTree
+            \ |   wincmd w
+            \ | endif
+
 " Nerdtree
 nmap <leader>ne :NERDTree<cr>
 " show hidden files
@@ -193,6 +203,11 @@ let NERDTreeCascadeSingleChildDir=0
 let g:NERDTreeChDirMode = 2
 " Hide ~ line symbol bc it is ugly
 highlight EndOfBuffer guifg=bg
+" open nerdtree automatically when vim starts if no files were specified
+autocmd StdinReadPre * let s:std_in=1
+autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+" Close Vim automatically if NERDTree is only window left open
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
 " Use The Silver Searcher https://github.com/ggreer/the_silver_searcher
 if executable('ag')
