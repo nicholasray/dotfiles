@@ -36,7 +36,6 @@ Plug 'autozimu/LanguageClient-neovim', {
 " Initialize plugin system
 call plug#end()
 
-
 " Turn on cursor highlight line
 set cursorline
 
@@ -74,8 +73,6 @@ set statusline+=%*
 
 let g:syntastic_check_on_open = 1
 
-" Flow
-let g:javascript_plugin_flow = 1
 " JSDoc
 let g:javascript_plugin_jsdoc = 1
 
@@ -195,6 +192,8 @@ nmap <leader>ne :NERDTree<cr>
 " show hidden files
 let NERDTreeShowHidden=1
 let g:NERDTreeWinPos = "right"
+" Hide NERDTree help message
+let NERDTreeMinimalUI = 1
 " Default NERDTree width
 let g:NERDTreeWinSize=30
 " expand all directories regardless if they have a single child
@@ -203,9 +202,10 @@ let NERDTreeCascadeSingleChildDir=0
 let g:NERDTreeChDirMode = 2
 " Hide ~ line symbol bc it is ugly
 highlight EndOfBuffer guifg=bg
-" open nerdtree automatically when vim starts if no files were specified
-autocmd StdinReadPre * let s:std_in=1
-autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+" Open NERDTree automatically
+autocmd vimenter * NERDTree
+" Switch to main winow when vim starts (not NERDTree)
+autocmd VimEnter * wincmd p
 " Close Vim automatically if NERDTree is only window left open
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
@@ -244,7 +244,8 @@ function! s:find_project_root()
 endfunction
 command! ProjectFiles execute 'Files' s:find_project_root()
 " Make FZF behave like ctrl-p and prevent fzf from opening in nerdtree buffer
-nnoremap <silent> <expr> <c-p> (expand('%') =~ 'NERD_tree' ? "\<c-w>\<c-w>" : '').":ProjectFiles\<cr>"
+nnoremap <silent> <expr> <c-p> (expand('%') =~ 'NERD_tree' ? "\<c-w>\<c-w>" : '')." : :ProjectFiles\<cr>"
+nnoremap <C-p> :ProjectFiles<cr>
 
 " Turn off search highlighting easily
 nnoremap <Leader>j :noh<cr>
@@ -294,3 +295,7 @@ nnoremap M :call LanguageClient#textDocument_signatureHelp()<CR>
 nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
 nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
 
+" Open VIMRC easily
+nnoremap <Leader>fd :e $MYVIMRC<CR>
+" Open v-split easily
+nnoremap <Leader>wv :vsp<CR>
