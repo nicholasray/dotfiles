@@ -1,7 +1,6 @@
 " setting up vim-plug
 call plug#begin('~/.local/share/nvim/plugged')
 
-Plug 'rking/ag.vim'
 Plug 'Raimondi/delimitMate'
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'scrooloose/nerdtree'
@@ -9,7 +8,6 @@ Plug 'vim-syntastic/syntastic'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-endwise'
 Plug 'tpope/vim-fugitive'
-Plug 'fatih/vim-go'
 Plug 'rhysd/vim-grammarous'
 Plug 'pangloss/vim-javascript'
 Plug 'mxw/vim-jsx'
@@ -18,16 +16,18 @@ Plug 'prettier/vim-prettier'
 Plug 'digitaltoad/vim-pug'
 Plug 'tpope/vim-surround'
 Plug 'acarapetis/vim-colors-github'
-Plug 'fatih/vim-go'
 Plug 'google/vim-searchindex'
 Plug 'tpope/vim-sleuth'
-Plug '/usr/local/opt/fzf'
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'itchyny/lightline.vim'
 Plug 'godlygeek/tabular'
 Plug 'mustache/vim-mustache-handlebars'
 Plug 'w0rp/ale'
 Plug 'morhetz/gruvbox'
+Plug 'ayu-theme/ayu-vim'
+Plug 'mhinz/vim-startify'
+Plug 'yarisgutierrez/ayu-lightline'
 Plug 'autozimu/LanguageClient-neovim', {
     \ 'branch': 'next',
     \ 'do': 'bash install.sh',
@@ -35,6 +35,12 @@ Plug 'autozimu/LanguageClient-neovim', {
 
 " Initialize plugin system
 call plug#end()
+
+" Turn on cursor highlight line
+set cursorline
+
+" Cycle between windows easily
+nmap <tab> <C-W>w
 
 " Leader
 let mapleader = " "
@@ -138,7 +144,14 @@ nnoremap <C-l> <C-w>l
 set termguicolors
 
 " Color scheme
-colorscheme github
+let ayucolor="mirage"
+colorscheme ayu 
+set background=dark
+
+if &background ==# 'dark'
+  " Make vertical borders darker and more pleasing
+  hi VertSplit guibg=bg guifg=#14171F
+endif
 
 let g:lightline = {
   \   'colorscheme': 'powerline_custom',
@@ -171,13 +184,15 @@ endfunction
 nmap <leader>ne :NERDTree<cr>
 " show hidden files
 let NERDTreeShowHidden=1
-" open nerdtree automatically when vim starts if no files were specified
-autocmd StdinReadPre * let s:std_in=1
-autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+let g:NERDTreeWinPos = "right"
+" Default NERDTree width
+let g:NERDTreeWinSize=30
 " expand all directories regardless if they have a single child
 let NERDTreeCascadeSingleChildDir=0
 " Update NerdTree's cwd every time root dir changes
 let g:NERDTreeChDirMode = 2
+" Hide ~ line symbol bc it is ugly
+highlight EndOfBuffer guifg=bg
 
 " Use The Silver Searcher https://github.com/ggreer/the_silver_searcher
 if executable('ag')
@@ -231,20 +246,6 @@ autocmd CompleteDone * pclose!
 " tab-complete
 inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
 
-" Vim-go
-let g:go_highlight_functions = 1
-let g:go_highlight_methods = 1
-let g:go_highlight_fields = 1
-let g:go_highlight_types = 1
-let g:go_highlight_operators = 1
-let g:go_highlight_build_constraints = 1
-let g:go_fmt_command = "goimports"
-
-autocmd FileType go setlocal nolist
-
-let g:syntastic_go_checkers = ['go']
-let g:go_list_type = "quickfix"
-
 " Undo / Redo
 set undofile
 set undodir=~/.config/undo/
@@ -277,3 +278,4 @@ let g:LanguageClient_diagnosticsEnable=0
 nnoremap M :call LanguageClient#textDocument_signatureHelp()<CR>
 nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
 nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
+
