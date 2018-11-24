@@ -84,7 +84,7 @@ set shiftwidth=2
 set expandtab
 
 " Display extra whitespace on command
-set listchars=tab:»·,trail:·,nbsp:·
+set listchars=tab:»·,trail:·,eol:↵,extends:↷,precedes:↶
 
 " Use one space, not two, after punctuation.
 set nojoinspaces
@@ -149,6 +149,8 @@ set background=dark
 if &background ==# 'dark'
   " Make vertical borders darker and more pleasing
   hi VertSplit guibg=bg guifg=#14171F
+  hi NonText guifg=#626F7F
+  hi SpecialKey guifg=#626F7F
 endif
 
 let g:lightline = {
@@ -245,7 +247,6 @@ endfunction
 command! ProjectFiles execute 'Files' s:find_project_root()
 " Make FZF behave like ctrl-p and prevent fzf from opening in nerdtree buffer
 nnoremap <silent> <expr> <c-p> (expand('%') =~ 'NERD_tree' ? "\<c-w>\<c-w>" : '')." : :ProjectFiles\<cr>"
-nnoremap <C-p> :ProjectFiles<cr>
 
 " Turn off search highlighting easily
 nnoremap <Leader>j :noh<cr>
@@ -296,6 +297,13 @@ nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
 nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
 
 " Open VIMRC easily
-nnoremap <Leader>fd :e $MYVIMRC<CR>
+nnoremap <Leader>fvo :e $MYVIMRC<CR>
+" Source VIMRC easily
+noremap <Leader>fvs :source $MYVIMRC<CR>
+" Install vim plugins easily
+nnoremap <Leader>fvI :source $MYVIMRC<CR>:PlugInstall<CR>
+" Clean vim plugins easily
+nnoremap <Leader>fvC :source $MYVIMRC<CR>:PlugClean<CR>
 " Open v-split easily
 nnoremap <Leader>wv :vsp<CR>
+nnoremap <Leader>tl :set list!<CR>
