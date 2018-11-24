@@ -156,6 +156,7 @@ if &background ==# 'dark'
   hi VertSplit guibg=bg guifg=#14171F
   hi NonText guifg=#626F7F
   hi SpecialKey guifg=#626F7F
+  hi MatchParen gui=bold guibg=#626F7F
 endif
 
 let g:airline_extensions = ['branch', 'syntastic', 'whitespace']
