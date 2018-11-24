@@ -32,6 +32,7 @@ Plug 'autozimu/LanguageClient-neovim', {
     \ 'do': 'bash install.sh',
     \ }
 Plug 'vim-airline/vim-airline'
+Plug 'qpkorr/vim-bufkill'
 
 " Initialize plugin system
 call plug#end()
@@ -158,6 +159,7 @@ endif
 
 let g:airline_extensions = ['branch', 'syntastic', 'whitespace']
 let g:airline_highlighting_cache = 1
+let g:airline#extensions#tabline#buffer_nr_show = 1
 
 " Open up Startify before NERDTree so that startify will work
 autocmd VimEnter *
@@ -287,3 +289,7 @@ nnoremap <Leader>wv :vsp<CR>
 nnoremap <Leader>tl :set list!<CR>
 " Generate JsDoc
 nnoremap <Leader>lgd :JsDoc<CR>
+" List buffers with fzf
+nnoremap <Leader>bl :Buffers<CR>
+" Remove current buffer without closing window
+nnoremap <Leader>bd :BD<CR>
