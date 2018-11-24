@@ -285,3 +285,5 @@ nnoremap <Leader>fvC :source $MYVIMRC<CR>:PlugClean<CR>
 " Open v-split easily
 nnoremap <Leader>wv :vsp<CR>
 nnoremap <Leader>tl :set list!<CR>
+" Generate JsDoc
+nnoremap <Leader>lgd :JsDoc<CR>
