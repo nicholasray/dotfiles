@@ -20,7 +20,6 @@ Plug 'google/vim-searchindex'
 Plug 'tpope/vim-sleuth'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
-Plug 'itchyny/lightline.vim'
 Plug 'godlygeek/tabular'
 Plug 'mustache/vim-mustache-handlebars'
 Plug 'w0rp/ale'
@@ -32,12 +31,16 @@ Plug 'autozimu/LanguageClient-neovim', {
     \ 'branch': 'next',
     \ 'do': 'bash install.sh',
     \ }
+Plug 'vim-airline/vim-airline'
 
 " Initialize plugin system
 call plug#end()
 
 " Turn on cursor highlight line
 set cursorline
+
+" Don't show mode in status line
+:set noshowmode
 
 " Cycle between windows easily
 nmap <tab> <C-W>w
@@ -143,7 +146,7 @@ set termguicolors
 
 " Color scheme
 let ayucolor="mirage"
-colorscheme ayu 
+colorscheme ayu
 set background=dark
 
 if &background ==# 'dark'
@@ -153,33 +156,8 @@ if &background ==# 'dark'
   hi SpecialKey guifg=#626F7F
 endif
 
-let g:lightline = {
-  \   'colorscheme': 'powerline_custom',
-  \   'active': {
-  \     'left':[ [ 'mode', 'paste' ],
-  \              [ 'gitbranch', 'readonly', 'filename', 'modified' ]
-  \     ]
-  \   },
-  \   'component_function': {
-  \     'filename': 'FilenameForLightline',
-  \     'gitbranch': 'fugitive#head',
-  \     'fileformat': 'LightlineFileformat',
-  \     'filetype': 'LightlineFiletype'
-  \   }
-  \ }
-
-function! LightlineFileformat()
-  return winwidth(0) > 70 ? &fileformat : ''
-endfunction
-
-function! LightlineFiletype()
-  return winwidth(0) > 70 ? (&filetype !=# '' ? &filetype : 'no ft') : ''
-endfunction
-
-function! FilenameForLightline()
-  return expand('%')
-endfunction
-
+let g:airline_extensions = ['branch', 'syntastic', 'whitespace']
+let g:airline_highlighting_cache = 1
 
 " Open up Startify before NERDTree so that startify will work
 autocmd VimEnter *
@@ -290,7 +268,7 @@ let g:LanguageClient_serverCommands = {
     \ 'php': [ 'php', '~/Development/php-language-server/vendor/felixfbecker/language-server/bin/php-language-server.php' ],
     \ 'javascript.jsx': [ 'node', '~/.nvm/versions/node/v10.13.0/lib/node_modules/javascript-typescript-langserver/lib/language-server-stdio.js' ]
     \ }
-let g:LanguageClient_diagnosticsEnable=0 
+let g:LanguageClient_diagnosticsEnable=0
 
 nnoremap M :call LanguageClient#textDocument_signatureHelp()<CR>
 nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
