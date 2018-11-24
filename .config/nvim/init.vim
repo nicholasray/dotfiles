@@ -33,6 +33,7 @@ Plug 'autozimu/LanguageClient-neovim', {
     \ }
 Plug 'vim-airline/vim-airline'
 Plug 'qpkorr/vim-bufkill'
+Plug 'airblade/vim-rooter'
 
 " Initialize plugin system
 call plug#end()
@@ -180,8 +181,6 @@ let NERDTreeMinimalUI = 1
 let g:NERDTreeWinSize=30
 " expand all directories regardless if they have a single child
 let NERDTreeCascadeSingleChildDir=0
-" Update NerdTree's cwd every time root dir changes
-let g:NERDTreeChDirMode = 2
 " Hide ~ line symbol bc it is ugly
 highlight EndOfBuffer guifg=bg
 " Open NERDTree automatically
@@ -235,9 +234,14 @@ nnoremap <Leader>j :noh<cr>
 let g:deoplete#enable_at_startup = 1
 let g:deoplete#file#enable_buffer_path = 1
 
+call deoplete#custom#option({
+\ 'auto_complete_delay': 50,
+\ 'auto_refresh_delay': 50
+\ })
+" Disable 'Pattern not Found' messages in command line
+set shortmess+=c
 inoremap <expr> <C-j> pumvisible() ? "\<C-n>" : "\<C-j>"
 inoremap <expr> <C-k> pumvisible() ? "\<C-p>" : "\<C-k>"
-
 " close preview after completion
 autocmd CompleteDone * pclose!
 " tab-complete
