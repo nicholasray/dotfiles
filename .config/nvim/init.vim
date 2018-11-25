@@ -173,6 +173,8 @@ autocmd VimEnter *
 
 " Nerdtree
 nmap <leader>ne :NERDTree<cr>
+" Highlight File in NERDTree
+nnoremap <Leader>nf :NERDTreeFind<cr>
 " show hidden files
 let NERDTreeShowHidden=1
 let g:NERDTreeWinPos = "right"
@@ -213,20 +215,9 @@ let g:fzf_colors =
   \ 'spinner': ['fg', 'Label'],
   \ 'header':  ['fg', 'Comment'] }
 
-" ProjectFiles tries to locate files relative to the git root contained in
-" NerdTree, falling back to the current NerdTree dir if not available
-" see https://github.com/junegunn/fzf.vim/issues/47#issuecomment-160237795
-function! s:find_project_root()
-  let nerd_root = g:NERDTree.ForCurrentTab().getRoot().path.str()
-  let git_root = system('git -C '.shellescape(nerd_root).' rev-parse --show-toplevel 2> /dev/null')[:-2]
-  if strlen(git_root)
-    return git_root
-  endif
-  return nerd_root
-endfunction
-command! ProjectFiles execute 'Files' s:find_project_root()
 " Make FZF behave like ctrl-p and prevent fzf from opening in nerdtree buffer
 nnoremap <silent> <expr> <c-p> (expand('%') =~ 'NERD_tree' ? "\<c-w>\<c-w>" : '')." : :ProjectFiles\<cr>"
+nnoremap <c-p> :FZF<cr>
 
 " Turn off search highlighting easily
 nnoremap <Leader>j :noh<cr>
