@@ -1,19 +1,19 @@
 # This is Git's per-user configuration file.
 [user]
 # Please adapt and uncomment the following lines:
-  name = Nick Ray
-  email = nray@nray.io
+	name = Nick Ray
+	email = nray@nray.io
 [push]
   default = current
 [color]
   ui = auto
 [core]
-	excludesfile = /Users/nray/.gitignore
+	excludesfile = /Users/nray/.gitignore_global
   autocrlf = input
 [merge]
   ff = only
 [commit]
-  template = ~/.gitmessage
+	template = ~/.gitmessage
 [fetch]
   prune = true
 [rebase]
