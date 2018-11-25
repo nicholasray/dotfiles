@@ -298,3 +298,5 @@ nnoremap <Leader>lgd :JsDoc<CR>
 nnoremap <Leader>bl :Buffers<CR>
 " Remove current buffer without closing window
 nnoremap <Leader>bd :BD<CR>
+" Make search project easier
+nnoremap <Leader>sp :Rg 
