@@ -277,7 +277,7 @@ nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
 " Open VIMRC
 nnoremap <Leader>fvo :e $MYVIMRC<CR>
 " Source VIMRC
-noremap <Leader>fvs :source $MYVIMRC<CR>
+nnoremap <Leader>fvs :source $MYVIMRC<CR>
 " Install vim plugins
 nnoremap <Leader>fvI :source $MYVIMRC<CR>:PlugInstall<CR>
 " Clean vim plugins
@@ -295,11 +295,19 @@ nnoremap <Leader>bd :BD<CR>
 nnoremap <Leader>wd :q<CR>
 " Make search project easier
 nnoremap <Leader>sp :Rg 
+" Toggle terminal mode
+nnoremap <silent> <Leader>tt :topleft split term://zsh<CR>:resize 15<CR>i
+" Increase window height
+nnoremap <Leader>wh> :res +10<CR>
+" Decrease window height
+nnoremap <Leader>wh< :res -10<CR>
+" Increase window width
+nnoremap <Leader>ww> :vertical resize +10<CR>
+" Decrease window width
+nnoremap <Leader>ww< :vertical resize -10<CR>
 
 " 'Raw'-version of Ag.
 " Prepend `autocmd VimEnter *` if you want to name it Ag
 " and override the default command
 command! -nargs=+ -complete=file Rag call fzf#vim#ag_raw(<q-args>)
 
-" Toggle terminal mode
-nnoremap <silent> <Leader>tt :topleft split term://zsh<CR>:resize 15<CR>i
