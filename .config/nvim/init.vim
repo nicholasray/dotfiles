@@ -4,7 +4,6 @@ call plug#begin('~/.local/share/nvim/plugged')
 Plug 'Raimondi/delimitMate'
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'scrooloose/nerdtree'
-Plug 'vim-syntastic/syntastic'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-endwise'
 Plug 'tpope/vim-fugitive'
@@ -69,16 +68,6 @@ endif
 
 " Disable cursor from changing
 set guicursor=
-
-" Syntastic options
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
-
-let g:syntastic_check_on_open = 1
-
-" JSDoc
-let g:javascript_plugin_jsdoc = 1
 
 filetype plugin indent on
 
@@ -161,7 +150,7 @@ if &background ==# 'dark'
   hi MatchParen gui=bold guibg=#626F7F
 endif
 
-let g:airline_extensions = ['branch', 'syntastic', 'whitespace']
+let g:airline_extensions = ['branch', 'whitespace']
 let g:airline_highlighting_cache = 1
 let g:airline#extensions#tabline#buffer_nr_show = 1
 
@@ -173,7 +162,11 @@ autocmd VimEnter *
             \ |   wincmd w
             \ | endif
 
-" Vim-rooter
+" vim-javascript JSDoc syntax highlighting
+let g:javascript_plugin_jsdoc = 1
+
+" Vim-rooter don't echo message when changing dirs (temporary fix for opening
+" files from vim startify)
 let g:rooter_silent_chdir = 1
 
 " Nerdtree
@@ -221,7 +214,6 @@ let g:fzf_colors =
   \ 'header':  ['fg', 'Comment'] }
 
 " Make FZF behave like ctrl-p and prevent fzf from opening in nerdtree buffer
-nnoremap <silent> <expr> <c-p> (expand('%') =~ 'NERD_tree' ? "\<c-w>\<c-w>" : '')." : :ProjectFiles\<cr>"
 nnoremap <c-p> :FZF<cr>
 
 " Turn off search highlighting easily
@@ -235,7 +227,8 @@ call deoplete#custom#option({
 \ 'auto_complete_delay': 50,
 \ 'auto_refresh_delay': 50
 \ })
-" Disable 'Pattern not Found' messages in command line
+" Disable 'Pattern not Found' messages in command line when Language Client
+" returns no results
 set shortmess+=c
 inoremap <expr> <C-j> pumvisible() ? "\<C-n>" : "\<C-j>"
 inoremap <expr> <C-k> pumvisible() ? "\<C-p>" : "\<C-k>"
@@ -253,9 +246,6 @@ autocmd BufRead,BufNewFile *.md setlocal spell
 
 " Enable Mouse Operability in Neovim
 set mouse=a
-
-" Prevent Ag from opening first result
-ca Ag Ag!
 
 " Fix files with prettier, and then ESLint.
 let g:ale_lint_on_save = 1
@@ -293,10 +283,12 @@ nnoremap <Leader>bl :Buffers<CR>
 nnoremap <Leader>bd :BD<CR>
 " Close current window
 nnoremap <Leader>wd :q<CR>
-" Make search project easier
+" Make search project
 nnoremap <Leader>sp :Rg 
+" Search word under corsor
+nnoremap <expr> <Leader>sc ':Rg ' . expand('<cword>')
 " Toggle terminal mode
-nnoremap <silent> <Leader>tt :topleft split term://zsh<CR>:resize 15<CR>i
+nnoremap <silent> <Leader>tt :topleft split term://zsh<CR>:resize 5<CR>:set wfh<CR>i
 " Increase window height
 nnoremap <Leader>wh> :res +10<CR>
 " Decrease window height
@@ -310,4 +302,3 @@ nnoremap <Leader>ww< :vertical resize -10<CR>
 " Prepend `autocmd VimEnter *` if you want to name it Ag
 " and override the default command
 command! -nargs=+ -complete=file Rag call fzf#vim#ag_raw(<q-args>)
-
