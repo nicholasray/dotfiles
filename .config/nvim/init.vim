@@ -31,13 +31,12 @@ Plug 'autozimu/LanguageClient-neovim', {
     \ }
 Plug 'vim-airline/vim-airline'
 Plug 'qpkorr/vim-bufkill'
-Plug 'airblade/vim-rooter'
+Plug 'vim-airline/vim-airline-themes'
+Plug 'rking/ag.vim'
+Plug 'jremmen/vim-ripgrep'
 
 " Initialize plugin system
 call plug#end()
-
-" Turn on cursor highlight line
-set cursorline
 
 " Don't show mode in status line
 :set noshowmode
@@ -137,17 +136,30 @@ tnoremap <C-N> <C-\><C-N>
 " Use true colors
 set termguicolors
 
-" Color scheme
-let ayucolor="mirage"
-colorscheme ayu
-set background=dark
+let b:mode = 'light'
 
-if &background ==# 'dark'
+if b:mode == 'light'
+  " Color scheme
+  colorscheme github
+  set background=light
+  hi Normal guibg=#f5f4fc
+  let g:airline_theme='base16'
+  let g:NERDTreeHighlightCursorline = 0
+endif
+
+if b:mode == 'light'
+  " Turn on cursor highlight line
+  set cursorline
+  let ayucolor="mirage"
+  colorscheme ayu
+  set background=dark
+  let g:airline_theme='ayu'
   " Make vertical borders darker and more pleasing
   hi VertSplit guibg=bg guifg=#14171F
   hi NonText guifg=#626F7F
   hi SpecialKey guifg=#626F7F
   hi MatchParen gui=bold guibg=#626F7F
+  hi link QuickFixLine Normal
 endif
 
 let g:airline_extensions = ['branch', 'whitespace']
@@ -164,10 +176,6 @@ autocmd VimEnter *
 
 " vim-javascript JSDoc syntax highlighting
 let g:javascript_plugin_jsdoc = 1
-
-" Vim-rooter don't echo message when changing dirs (temporary fix for opening
-" files from vim startify)
-let g:rooter_silent_chdir = 1
 
 " Nerdtree
 nmap <leader>ne :NERDTree<cr>
@@ -224,8 +232,8 @@ let g:deoplete#enable_at_startup = 1
 let g:deoplete#file#enable_buffer_path = 1
 
 call deoplete#custom#option({
-\ 'auto_complete_delay': 50,
-\ 'auto_refresh_delay': 50
+\ 'auto_complete_delay': 80,
+\ 'auto_refresh_delay': 80
 \ })
 " Disable 'Pattern not Found' messages in command line when Language Client
 " returns no results
@@ -302,3 +310,6 @@ nnoremap <Leader>ww< :vertical resize -10<CR>
 " Prepend `autocmd VimEnter *` if you want to name it Ag
 " and override the default command
 command! -nargs=+ -complete=file Rag call fzf#vim#ag_raw(<q-args>)
+
+" Prevent Ag from opening first buffer
+ca Ag Ag!

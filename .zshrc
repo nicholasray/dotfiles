@@ -56,3 +56,5 @@ export NVM_DIR="$HOME/.nvm"
 source /usr/local/opt/chruby/share/chruby/chruby.sh
 source /usr/local/opt/chruby/share/chruby/auto.sh
 chruby 2.5.1
+
+preexec () { print -Pn "\e]0;$2\a" }
