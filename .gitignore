@@ -4,5 +4,6 @@
 .tern-port
 .config/*
 !.config/nvim
+!.config/kitty
 npm-debug.log
 *.code-workspace
