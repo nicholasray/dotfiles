@@ -34,6 +34,7 @@ Plug 'qpkorr/vim-bufkill'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'rking/ag.vim'
 Plug 'jremmen/vim-ripgrep'
+Plug 'arcticicestudio/nord-vim'
 
 " Initialize plugin system
 call plug#end()
@@ -136,7 +137,7 @@ tnoremap <C-N> <C-\><C-N>
 " Use true colors
 set termguicolors
 
-let b:mode = 'light'
+let b:mode = 'dark'
 
 if b:mode == 'light'
   " Color scheme
@@ -147,7 +148,7 @@ if b:mode == 'light'
   let g:NERDTreeHighlightCursorline = 0
 endif
 
-if b:mode == 'light'
+if b:mode == 'dark'
   " Turn on cursor highlight line
   set cursorline
   let ayucolor="mirage"
