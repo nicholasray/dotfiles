@@ -35,6 +35,7 @@ Plug 'vim-airline/vim-airline-themes'
 Plug 'rking/ag.vim'
 Plug 'jremmen/vim-ripgrep'
 Plug 'arcticicestudio/nord-vim'
+Plug 'jparise/vim-graphql'
 
 " Initialize plugin system
 call plug#end()
@@ -175,6 +176,8 @@ autocmd VimEnter *
             \ |   wincmd w
             \ | endif
 
+let g:startify_change_to_vcs_root = 1
+
 " vim-javascript JSDoc syntax highlighting
 let g:javascript_plugin_jsdoc = 1
 
@@ -236,6 +239,7 @@ call deoplete#custom#option({
 \ 'auto_complete_delay': 80,
 \ 'auto_refresh_delay': 80
 \ })
+
 " Disable 'Pattern not Found' messages in command line when Language Client
 " returns no results
 set shortmess+=c
@@ -260,8 +264,9 @@ set mouse=a
 let g:ale_lint_on_save = 1
 let g:ale_lint_on_text_changed = 'never'
 let g:ale_lint_on_enter = 0
-let g:ale_fixers = {'javascript': ['prettier', 'eslint']}
+let g:ale_fixers = {'javascript': ['prettier', 'eslint'], 'scss': ['prettier']}
 let g:ale_fix_on_save = 1
+let g:ale_javascript_eslint_suppress_missing_config = 1
 
 let g:LanguageClient_serverCommands = {
     \ 'php': [ 'php', '~/Development/php-language-server/vendor/felixfbecker/language-server/bin/php-language-server.php' ],
@@ -283,7 +288,10 @@ nnoremap <Leader>fvI :source $MYVIMRC<CR>:PlugInstall<CR>
 nnoremap <Leader>fvC :source $MYVIMRC<CR>:PlugClean<CR>
 " Open v-split
 nnoremap <Leader>wv :vsp<CR>
+" Toggle listchars
 nnoremap <Leader>tl :set list!<CR>
+" Toggle Git Blame
+nnoremap <Leader>tg :Gblame<CR>
 " Generate JsDoc
 nnoremap <Leader>lgd :JsDoc<CR>
 " List buffers with fzf

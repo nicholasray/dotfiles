@@ -1,32 +1,32 @@
 # This is Git's per-user configuration file.
 [user]
 # Please adapt and uncomment the following lines:
-	name = Nick Ray
-	email = nray@nray.io
+  name = Nick Ray
+  email = nray@nray.io
 [push]
   default = current
 [color]
   ui = auto
 [core]
-	excludesfile = /Users/nray/.gitignore_global
+  excludesFile = /Users/nray/.gitignore
   autocrlf = input
 [merge]
   ff = only
 [commit]
-	template = ~/.gitmessage
+  template = ~/.gitmessage
 [fetch]
   prune = true
 [rebase]
   autosquash = true
 [diff]
-    tool = default-difftool
+  tool = default-difftool
 [difftool "default-difftool"]
-    cmd = code --wait --diff $LOCAL $REMOTE
-[mergetool "sourcetree"]
-	cmd = /Applications/Sourcetree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
-	trustExitCode = true
+  cmd = code --wait --diff $LOCAL $REMOTE
 [alias]
-	push-for-review = push origin HEAD:refs/for/master
+  push-for-review = push origin HEAD:refs/for/master
 [difftool "sourcetree"]
 	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
 	path = 
+[mergetool "sourcetree"]
+	cmd = /Applications/Sourcetree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
+	trustExitCode = true
