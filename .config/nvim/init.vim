@@ -2,7 +2,7 @@
 call plug#begin('~/.local/share/nvim/plugged')
 
 Plug 'Raimondi/delimitMate'
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins', 'commit': 'bf6db3bede2097a0f5572aea19fffc3b98e6a884' }
 Plug 'scrooloose/nerdtree'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-endwise'
@@ -284,6 +284,8 @@ nnoremap <Leader>fvo :e $MYVIMRC<CR>
 nnoremap <Leader>fvs :source $MYVIMRC<CR>
 " Install vim plugins
 nnoremap <Leader>fvI :source $MYVIMRC<CR>:PlugInstall<CR>
+" Update vim plugins
+nnoremap <Leader>fvU :source $MYVIMRC<CR>:PlugUpdate<CR>
 " Clean vim plugins
 nnoremap <Leader>fvC :source $MYVIMRC<CR>:PlugClean<CR>
 " Open v-split
