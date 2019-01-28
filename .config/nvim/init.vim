@@ -36,7 +36,6 @@ Plug 'rking/ag.vim'
 Plug 'jremmen/vim-ripgrep'
 Plug 'arcticicestudio/nord-vim'
 Plug 'jparise/vim-graphql'
-Plug 'roxma/LanguageServer-php-neovim',  {'do': 'composer install && composer run-script parse-stubs'}
 
 " Initialize plugin system
 call plug#end()
@@ -270,7 +269,8 @@ let g:ale_fix_on_save = 1
 let g:ale_javascript_eslint_suppress_missing_config = 1
 
 let g:LanguageClient_serverCommands = {
-    \ 'javascript.jsx': [ 'node', '~/.nvm/versions/node/v10.13.0/lib/node_modules/javascript-typescript-langserver/lib/language-server-stdio.js' ]
+    \ 'php': [ 'php', '~/Development/php-language-server/vendor/felixfbecker/language-server/bin/php-language-server.php' ],
+    \ 'javascript.jsx': [ 'node', '~/.nvm/versions/node/v6.11.0/lib/node_modules/javascript-typescript-langserver/lib/language-server-stdio.js' ]
     \ }
 let g:LanguageClient_diagnosticsEnable=0
 

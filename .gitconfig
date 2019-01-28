@@ -8,7 +8,7 @@
 [color]
   ui = auto
 [core]
-  excludesFile = /Users/nray/.gitignore
+  excludesfile = /Users/nray/.gitignore
   autocrlf = input
 [merge]
   ff = only
