@@ -268,9 +268,10 @@ let g:ale_fixers = {'javascript': ['prettier', 'eslint'], 'scss': ['prettier']}
 let g:ale_fix_on_save = 1
 let g:ale_javascript_eslint_suppress_missing_config = 1
 
+let node_version = systemlist('node -v')[0]
 let g:LanguageClient_serverCommands = {
     \ 'php': [ 'php', '~/Development/php-language-server/vendor/felixfbecker/language-server/bin/php-language-server.php' ],
-    \ 'javascript.jsx': [ 'node', '~/.nvm/versions/node/v6.11.0/lib/node_modules/javascript-typescript-langserver/lib/language-server-stdio.js' ]
+    \ 'javascript.jsx': [ 'node', '~/.nvm/versions/node/'.node_version.'/lib/node_modules/javascript-typescript-langserver/lib/language-server-stdio.js' ]
     \ }
 let g:LanguageClient_diagnosticsEnable=0
 
