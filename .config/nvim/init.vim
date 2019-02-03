@@ -1,8 +1,7 @@
 " setting up vim-plug
 call plug#begin('~/.local/share/nvim/plugged')
 
-Plug 'Raimondi/delimitMate'
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins', 'commit': 'bf6db3bede2097a0f5572aea19fffc3b98e6a884' }
+Plug 'jiangmiao/auto-pairs'
 Plug 'scrooloose/nerdtree'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-endwise'
@@ -25,10 +24,6 @@ Plug 'morhetz/gruvbox'
 Plug 'ayu-theme/ayu-vim'
 Plug 'mhinz/vim-startify'
 Plug 'heavenshell/vim-jsdoc'
-Plug 'autozimu/LanguageClient-neovim', {
-    \ 'branch': 'next',
-    \ 'do': 'bash install.sh',
-    \ }
 Plug 'vim-airline/vim-airline'
 Plug 'qpkorr/vim-bufkill'
 Plug 'vim-airline/vim-airline-themes'
@@ -36,6 +31,7 @@ Plug 'rking/ag.vim'
 Plug 'jremmen/vim-ripgrep'
 Plug 'arcticicestudio/nord-vim'
 Plug 'jparise/vim-graphql'
+Plug 'neoclide/coc.nvim', {'tag': '*', 'do': { -> coc#util#install()}}
 
 " Initialize plugin system
 call plug#end()
@@ -95,21 +91,6 @@ au FileType gitcommit set tw=72
 set number
 set numberwidth=5
 
-" Tab completion
-" will insert tab at beginning of line,
-" will use completion if not at beginning
-set wildmode=list:longest,list:full
-function! InsertTabWrapper()
-    let col = col('.') - 1
-    if !col || getline('.')[col - 1] !~ '\k'
-        return "\<tab>"
-    else
-        return "\<c-p>"
-    endif
-endfunction
-inoremap <Tab> <c-r>=InsertTabWrapper()<cr>
-inoremap <S-Tab> <c-n>
-
 " Switch between the last two files
 nnoremap <leader><leader> <c-^>
 
@@ -138,31 +119,18 @@ tnoremap <C-N> <C-\><C-N>
 " Use true colors
 set termguicolors
 
-let b:mode = 'dark'
-
-if b:mode == 'light'
-  " Color scheme
-  colorscheme github
-  set background=light
-  hi Normal guibg=#f5f4fc
-  let g:airline_theme='base16'
-  let g:NERDTreeHighlightCursorline = 0
-endif
-
-if b:mode == 'dark'
-  " Turn on cursor highlight line
-  set cursorline
-  let ayucolor="mirage"
-  colorscheme ayu
-  set background=dark
-  let g:airline_theme='ayu'
-  " Make vertical borders darker and more pleasing
-  hi VertSplit guibg=bg guifg=#14171F
-  hi NonText guifg=#626F7F
-  hi SpecialKey guifg=#626F7F
-  hi MatchParen gui=bold guibg=#626F7F
-  hi link QuickFixLine Normal
-endif
+" Turn on cursor highlight line
+set cursorline
+let ayucolor="mirage"
+colorscheme ayu
+set background=dark
+let g:airline_theme='ayu'
+" Make vertical borders darker and more pleasing
+hi VertSplit guibg=bg guifg=#14171F
+hi NonText guifg=#626F7F
+hi SpecialKey guifg=#626F7F
+hi MatchParen gui=bold guibg=#626F7F
+hi link QuickFixLine Normal
 
 let g:airline_extensions = ['branch', 'whitespace']
 let g:airline_highlighting_cache = 1
@@ -231,19 +199,7 @@ nnoremap <c-p> :FZF<cr>
 " Turn off search highlighting easily
 nnoremap <Leader>j :noh<cr>
 
-" Deoplete
-let g:deoplete#enable_at_startup = 1
-let g:deoplete#file#enable_buffer_path = 1
-
-call deoplete#custom#option({
-\ 'auto_complete_delay': 80,
-\ 'auto_refresh_delay': 80
-\ })
-
-call deoplete#custom#source('LanguageClient', 'rank', 9999)
-
-" Disable 'Pattern not Found' messages in command line when Language Client
-" returns no results
+" don't give |ins-completion-menu| messages.
 set shortmess+=c
 inoremap <expr> <C-j> pumvisible() ? "\<C-n>" : "\<C-j>"
 inoremap <expr> <C-k> pumvisible() ? "\<C-p>" : "\<C-k>"
@@ -270,16 +226,26 @@ let g:ale_fixers = {'javascript': ['prettier', 'eslint'], 'scss': ['prettier']}
 let g:ale_fix_on_save = 1
 let g:ale_javascript_eslint_suppress_missing_config = 1
 
-let node_version = systemlist('node -v')[0]
-let g:LanguageClient_serverCommands = {
-    \ 'php': [ 'php', '~/Development/php-language-server/vendor/felixfbecker/language-server/bin/php-language-server.php' ],
-    \ 'javascript.jsx': [ 'node', '~/.nvm/versions/node/'.node_version.'/lib/node_modules/javascript-typescript-langserver/lib/language-server-stdio.js' ]
-    \ }
-let g:LanguageClient_diagnosticsEnable=0
+" Coc.nvim autocompletion settings
+" Remap keys for gotos
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+" Use tab for trigger completion with characters ahead and navigate.
+" Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 
-nnoremap M :call LanguageClient#textDocument_signatureHelp()<CR>
-nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
-nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+" Use <c-space> for trigger completion.
+inoremap <silent><expr> <c-space> coc#refresh()
 
 " Open VIMRC
 nnoremap <Leader>fvo :e $MYVIMRC<CR>
