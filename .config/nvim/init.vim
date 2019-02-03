@@ -240,6 +240,8 @@ call deoplete#custom#option({
 \ 'auto_refresh_delay': 80
 \ })
 
+call deoplete#custom#source('LanguageClient', 'rank', 9999)
+
 " Disable 'Pattern not Found' messages in command line when Language Client
 " returns no results
 set shortmess+=c
