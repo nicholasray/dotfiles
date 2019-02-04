@@ -242,7 +242,7 @@ set shortmess+=c
 inoremap <expr> <C-j> pumvisible() ? "\<C-n>" : "\<C-j>"
 inoremap <expr> <C-k> pumvisible() ? "\<C-p>" : "\<C-k>"
 " close preview after completion
-autocmd CompleteDone * pclose!
+autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
 
 " Open VIMRC
 nnoremap <Leader>fvo :e $MYVIMRC<CR>
