@@ -243,6 +243,8 @@ inoremap <expr> <C-j> pumvisible() ? "\<C-n>" : "\<C-j>"
 inoremap <expr> <C-k> pumvisible() ? "\<C-p>" : "\<C-k>"
 " close preview after completion
 autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
+let g:coc_snippet_next = '<TAB>'
+let g:coc_snippet_prev = '<S-TAB>'
 
 " Open VIMRC
 nnoremap <Leader>fvo :e $MYVIMRC<CR>
