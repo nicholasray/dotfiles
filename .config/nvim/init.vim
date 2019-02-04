@@ -199,14 +199,6 @@ nnoremap <c-p> :FZF<cr>
 " Turn off search highlighting easily
 nnoremap <Leader>j :noh<cr>
 
-" don't give |ins-completion-menu| messages.
-set shortmess+=c
-inoremap <expr> <C-j> pumvisible() ? "\<C-n>" : "\<C-j>"
-inoremap <expr> <C-k> pumvisible() ? "\<C-p>" : "\<C-k>"
-" close preview after completion
-autocmd CompleteDone * pclose!
-" tab-complete
-inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
 
 " Undo / Redo
 set undofile
@@ -246,6 +238,10 @@ function! s:check_back_space() abort
 endfunction
 " Use <c-space> for trigger completion.
 inoremap <silent><expr> <c-space> coc#refresh()
+" don't give |ins-completion-menu| messages.
+set shortmess+=c
+inoremap <expr> <C-j> pumvisible() ? "\<C-n>" : "\<C-j>"
+inoremap <expr> <C-k> pumvisible() ? "\<C-p>" : "\<C-k>"
 
 " Open VIMRC
 nnoremap <Leader>fvo :e $MYVIMRC<CR>
