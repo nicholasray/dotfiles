@@ -223,6 +223,19 @@ let g:ale_javascript_eslint_suppress_missing_config = 1
 nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+
+" Use td for show documentation in preview window
+nnoremap <silent> td :call <SID>show_documentation()<CR>
+
+function! s:show_documentation()
+  if &filetype == 'vim'
+    execute 'h '.expand('<cword>')
+  else
+    call CocAction('doHover')
+  endif
+endfunction
+
 " Use tab for trigger completion with characters ahead and navigate.
 " Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
 inoremap <silent><expr> <TAB>
@@ -239,6 +252,9 @@ endfunction
 inoremap <silent><expr> <c-space> coc#refresh()
 " don't give |ins-completion-menu| messages.
 set shortmess+=c
+" Better display for messages and avoid 'Press ENTER or type command to continue
+" from echo messages being too long
+set cmdheight=2
 inoremap <expr> <C-j> pumvisible() ? "\<C-n>" : "\<C-j>"
 inoremap <expr> <C-k> pumvisible() ? "\<C-p>" : "\<C-k>"
 " close preview after completion

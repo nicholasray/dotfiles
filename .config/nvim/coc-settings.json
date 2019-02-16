@@ -1,3 +1,9 @@
 {
-  "coc.preferences.diagnostic.enable":false
+  "coc.preferences.diagnostic.enable":true,
+  "coc.preferences.colorSupport": false,
+  "css.colorDecorators.enable": false,
+  "less.colorDecorators.enable": false,
+  "scss.colorDecorators.enable": false,
+  "coc.source.file.ignoreHidden": false,
+  "javascript.updateImportsOnFileMove.enable": false
 }
