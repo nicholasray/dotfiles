@@ -1,5 +1,5 @@
 {
-  "coc.preferences.diagnostic.enable":true,
+  "coc.preferences.diagnostic.enable": false,
   "coc.preferences.colorSupport": false,
   "css.colorDecorators.enable": false,
   "less.colorDecorators.enable": false,
