@@ -219,6 +219,8 @@ let g:ale_fix_on_save = 1
 let g:ale_javascript_eslint_suppress_missing_config = 1
 
 " Coc.nvim autocompletion settings
+" Smaller updatetime for CursorHold & CursorHoldI
+set updatetime=300
 " Remap keys for gotos
 nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gy <Plug>(coc-type-definition)
@@ -257,10 +259,13 @@ set shortmess+=c
 set cmdheight=2
 inoremap <expr> <C-j> pumvisible() ? "\<C-n>" : "\<C-j>"
 inoremap <expr> <C-k> pumvisible() ? "\<C-p>" : "\<C-k>"
-" close preview after completion
-autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
 let g:coc_snippet_next = '<TAB>'
 let g:coc_snippet_prev = '<S-TAB>'
+augroup mygroup
+  autocmd!
+  " Update signature help on jump placeholder
+  autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
+augroup end
 
 " Open VIMRC
 nnoremap <Leader>fvo :e $MYVIMRC<CR>
