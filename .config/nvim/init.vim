@@ -1,7 +1,7 @@
 " setting up vim-plug
 call plug#begin('~/.local/share/nvim/plugged')
 
-Plug 'jiangmiao/auto-pairs'
+Plug 'Raimondi/delimitMate'
 Plug 'scrooloose/nerdtree'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-endwise'
@@ -12,15 +12,12 @@ Plug 'mxw/vim-jsx'
 Plug 'moll/vim-node'
 Plug 'digitaltoad/vim-pug'
 Plug 'tpope/vim-surround'
-Plug 'acarapetis/vim-colors-github'
 Plug 'google/vim-searchindex'
 Plug 'tpope/vim-sleuth'
 Plug '/usr/local/opt/fzf'
 Plug 'junegunn/fzf.vim'
-Plug 'godlygeek/tabular'
+Plug 'junegunn/vim-easy-align'
 Plug 'mustache/vim-mustache-handlebars'
-Plug 'w0rp/ale'
-Plug 'morhetz/gruvbox'
 Plug 'ayu-theme/ayu-vim'
 Plug 'mhinz/vim-startify'
 Plug 'heavenshell/vim-jsdoc'
@@ -29,9 +26,10 @@ Plug 'qpkorr/vim-bufkill'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'rking/ag.vim'
 Plug 'jremmen/vim-ripgrep'
-Plug 'arcticicestudio/nord-vim'
 Plug 'jparise/vim-graphql'
-Plug 'neoclide/coc.nvim', {'tag': '*', 'do': { -> coc#util#install()}}
+Plug 'styled-components/vim-styled-components', { 'branch': 'main' }
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+
 
 " Initialize plugin system
 call plug#end()
@@ -199,7 +197,6 @@ nnoremap <c-p> :FZF<cr>
 " Turn off search highlighting easily
 nnoremap <Leader>j :noh<cr>
 
-
 " Undo / Redo
 set undofile
 set undodir=~/.config/undo/
@@ -211,12 +208,12 @@ autocmd BufRead,BufNewFile *.md setlocal spell
 set mouse=a
 
 " Fix files with prettier, and then ESLint.
-let g:ale_lint_on_save = 1
-let g:ale_lint_on_text_changed = 'never'
-let g:ale_lint_on_enter = 0
-let g:ale_fixers = {'javascript': ['prettier', 'eslint'], 'scss': ['prettier']}
-let g:ale_fix_on_save = 1
-let g:ale_javascript_eslint_suppress_missing_config = 1
+" let g:ale_lint_on_save = 1
+" let g:ale_lint_on_text_changed = 'never'
+" let g:ale_lint_on_enter = 0
+" let g:ale_javascript_eslint_suppress_missing_config = 1
+" let g:ale_fix_on_save = 1
+" let g:ale_linters = {'javascript': []}
 
 " Coc.nvim autocompletion settings
 " Smaller updatetime for CursorHold & CursorHoldI
@@ -231,7 +228,7 @@ nmap <silent> gr <Plug>(coc-references)
 nnoremap <silent> td :call <SID>show_documentation()<CR>
 
 function! s:show_documentation()
-  if &filetype == 'vim'
+  if (index(['vim','help'], &filetype) >= 0)
     execute 'h '.expand('<cword>')
   else
     call CocAction('doHover')
@@ -250,6 +247,7 @@ function! s:check_back_space() abort
   let col = col('.') - 1
   return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
+
 " Use <c-space> for trigger completion.
 inoremap <silent><expr> <c-space> coc#refresh()
 " don't give |ins-completion-menu| messages.
@@ -263,9 +261,14 @@ let g:coc_snippet_next = '<TAB>'
 let g:coc_snippet_prev = '<S-TAB>'
 augroup mygroup
   autocmd!
+  " Setup formatexpr specified filetype(s).
+  autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
   " Update signature help on jump placeholder
   autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
 augroup end
+
+" Open CocConfig
+nnoremap <Leader>fco :CocConfig<CR>
 
 " Open VIMRC
 nnoremap <Leader>fvo :e $MYVIMRC<CR>
@@ -305,6 +308,10 @@ nnoremap <Leader>wh< :res -10<CR>
 nnoremap <Leader>ww> :vertical resize +10<CR>
 " Decrease window width
 nnoremap <Leader>ww< :vertical resize -10<CR>
+" Start interactive EasyAlign in visual mode (e.g. vipga)
+xmap <Leader>a <Plug>(EasyAlign)
+" Open Markdown Preview 
+nnoremap <Leader>fmo :MarkdownPreview<CR>
 
 " 'Raw'-version of Ag.
 " Prepend `autocmd VimEnter *` if you want to name it Ag

@@ -1,9 +1,47 @@
 {
-  "coc.preferences.diagnostic.enable": false,
+  "diagnostic.enable": true,
+  "diagnostic.refreshAfterSave": true,
+  "diagnostic.checkCurrentLine": true,
   "coc.preferences.colorSupport": false,
   "css.colorDecorators.enable": false,
   "less.colorDecorators.enable": false,
   "scss.colorDecorators.enable": false,
   "coc.source.file.ignoreHidden": false,
-  "javascript.updateImportsOnFileMove.enable": false
+  "javascript.validate.enable": false,
+  "javascript.updateImportsOnFileMove.enable": false,
+  "coc.source.emoji.filetypes": [
+    "gitcommit"
+  ],
+  "eslint.autoFixOnSave": true,
+  "prettier.eslintIntegration": true,
+  "prettier.requireConfig": true,
+  "coc.preferences.formatOnSaveFiletypes": ["css", "javascript", "javascriptreact"],
+  "diagnostic-languageserver.linters": {
+     "phpcs": {
+        "command": "./vendor/bin/phpcs",
+        "debounce": 100,
+        "rootPatterns": [ "composer.json", "composer.lock", "vendor", ".git" ],
+        "args": [ "--report=emacs", "-s", "-" ],
+        "offsetLine": 0,
+        "offsetColumn": 0,
+        "sourceName": "phpcs",
+        "formatLines": 1,
+        "formatPattern": [
+          "^.*:(\\d+):(\\d+):\\s+(.*)\\s+-\\s+(.*)$",
+          {
+            "line": 1,
+            "column": 2,
+            "message": 4,
+            "security": 3
+          }
+        ],
+        "securities": {
+          "error": "error",
+          "warning": "warning"
+        }
+      }
+  },
+  "diagnostic-languageserver.filetypes": {
+    "php": "phpcs"
+  }
 }
