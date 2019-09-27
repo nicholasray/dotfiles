@@ -29,7 +29,8 @@ Plug 'jremmen/vim-ripgrep'
 Plug 'jparise/vim-graphql'
 Plug 'styled-components/vim-styled-components', { 'branch': 'main' }
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
-
+Plug 'dart-lang/dart-vim-plugin'
+Plug 'thosakwe/vim-flutter'
 
 " Initialize plugin system
 call plug#end()
@@ -122,7 +123,7 @@ set cursorline
 let ayucolor="mirage"
 colorscheme ayu
 set background=dark
-let g:airline_theme='ayu'
+let g:airline_theme='ayu_mirage'
 " Make vertical borders darker and more pleasing
 hi VertSplit guibg=bg guifg=#14171F
 hi NonText guifg=#626F7F
@@ -130,9 +131,8 @@ hi SpecialKey guifg=#626F7F
 hi MatchParen gui=bold guibg=#626F7F
 hi link QuickFixLine Normal
 
-let g:airline_extensions = ['branch', 'whitespace']
-let g:airline_highlighting_cache = 1
-let g:airline#extensions#tabline#buffer_nr_show = 1
+let g:airline_extensions = ['branch', 'coc']
+let g:airline_highlighting_cache = 0
 
 " Open up Startify before NERDTree so that startify will work
 autocmd VimEnter *
@@ -254,7 +254,7 @@ inoremap <silent><expr> <c-space> coc#refresh()
 set shortmess+=c
 " Better display for messages and avoid 'Press ENTER or type command to continue
 " from echo messages being too long
-set cmdheight=2
+set cmdheight=1
 inoremap <expr> <C-j> pumvisible() ? "\<C-n>" : "\<C-j>"
 inoremap <expr> <C-k> pumvisible() ? "\<C-p>" : "\<C-k>"
 let g:coc_snippet_next = '<TAB>'
@@ -266,6 +266,9 @@ augroup mygroup
   " Update signature help on jump placeholder
   autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
 augroup end
+
+" - fzf#vim#grep(command, with_column, [options], [fullscreen])
+command! -bang -nargs=* Fly call fzf#vim#grep('rg --color=never --line-number '.shellescape(<q-args>), 0, fzf#vim#with_preview({'options': '-n 3.. --exact --no-multi --delimiter :'}), <bang>0)
 
 " Open CocConfig
 nnoremap <Leader>fco :CocConfig<CR>
@@ -295,7 +298,7 @@ nnoremap <Leader>bd :BD<CR>
 " Close current window
 nnoremap <Leader>wd :q<CR>
 " Make search project
-nnoremap <Leader>sp :Rg 
+nnoremap <Leader>sf :Fly<CR>
 " Search word under corsor
 nnoremap <expr> <Leader>sc ':Rg ' . expand('<cword>')
 " Toggle terminal mode
@@ -313,10 +316,13 @@ xmap <Leader>a <Plug>(EasyAlign)
 " Open Markdown Preview 
 nnoremap <Leader>fmo :MarkdownPreview<CR>
 
-" 'Raw'-version of Ag.
-" Prepend `autocmd VimEnter *` if you want to name it Ag
-" and override the default command
-command! -nargs=+ -complete=file Rag call fzf#vim#ag_raw(<q-args>)
+" Some of these key choices were arbitrary;
+" it's just an example.
+nnoremap <leader>fa :FlutterRun<cr>
+nnoremap <leader>fq :FlutterQuit<cr>
+nnoremap <leader>fr :FlutterHotReload<cr>
+nnoremap <leader>fR :FlutterHotRestart<cr>
+nnoremap <leader>fD :FlutterVisualDebug<cr>
 
 " Prevent Ag from opening first buffer
 ca Ag Ag!

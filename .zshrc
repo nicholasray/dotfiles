@@ -1,5 +1,5 @@
 export VISUAL=nvim
-export EDITOR="code"
+export EDITOR=nvim
 
 bindkey '^R' history-incremental-search-backward
 
@@ -58,36 +58,16 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/bash_completion" ] && . "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
-export FZF_DEFAULT_OPTS=$FZF_DEFAULT_OPTS' --color=fg:#607080,bg:#212733,hl:#feaf57 --color=fg+:#cbccc6,bg+:#293141,hl+:#5fd7ff --color=info:#afaf87,prompt:#d7005f,pointer:#af5fff --color=marker:#87ff00,spinner:#af5fff,header:#87afaf'
-fzf_find_edit() {
-    local file=$(
-      fzf --reverse --no-multi --preview 'bat --color=always --line-range :500 {}'
-      )
-    if [[ -n $file ]]; then
-        $EDITOR $file
-    fi
-}
-
-alias ffe='fzf_find_edit'
-
-fzf_grep_edit(){
-    if [[ $# == 0 ]]; then
-        echo 'Error: search term was not provided.'
-        return
-    fi
-    rg --color=never --line-number "$@" |
-      fzf  --reverse --no-multi --delimiter : \
-           --preview "bat --color=always -H {2} --line-range {2}: {1}" \
-           --bind "ctrl-d:half-page-down,ctrl-u:half-page-up,ctrl-o:execute-silent($EDITOR -g {1}:{2}),enter:execute-silent($EDITOR -g {1}:{2})"
-}
-
-alias s='fzf_grep_edit'
+export FZF_DEFAULT_OPTS=$FZF_DEFAULT_OPTS' --color=fg:#607080,bg:#212733,hl:#feaf57 --color=fg+:#cbccc6,bg+:#293141,hl+:#5fd7ff --color=info:#afaf87,prompt:#d7005f,pointer:#af5fff --color=marker:#87ff00,spinner:#af5fff,header:#87afaf --bind ctrl-d:half-page-down,ctrl-u:half-page-up'
 
 fzf_grep_fly(){
     rg --color=never --line-number "$1"  |
-      fzf  -n 3 --exact --reverse --no-multi --delimiter : \
+      fzf  -n 3.. --exact --reverse --no-multi --delimiter : \
            --preview "bat --color=always -H {2} --line-range {2}: {1}" \
-           --bind "ctrl-d:half-page-down,ctrl-u:half-page-up,ctrl-o:execute-silent($EDITOR -g {1}:{2}),enter:execute-silent($EDITOR -g {1}:{2})"
+           --bind "ctrl-d:half-page-down,ctrl-u:half-page-up,enter:execute-silent(kitty @ focus-tab --match title:vim; kitty @ send-text --match-tab title:vim :edit +{2} {1}\\\x0d),ctrl-o:execute-silent(kitty @ focus-tab --match title:vim; kitty @ send-text --match-tab title:vim :vsplit +{2} {1}\\\x0d)"
 }
 
 alias fly='fzf_grep_fly'
+
+alias mw='~/Development/boxwiki/.workspace'
+alias rovermap='~/Development/AndroidStudioProjects/rovermap/.workspace'

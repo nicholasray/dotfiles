@@ -12,10 +12,24 @@
   "coc.source.emoji.filetypes": [
     "gitcommit"
   ],
+  "eslint.run":"onSave",
   "eslint.autoFixOnSave": true,
+  "prettier.disableSuccessMessage": true,
   "prettier.eslintIntegration": true,
   "prettier.requireConfig": true,
-  "coc.preferences.formatOnSaveFiletypes": ["css", "javascript", "javascriptreact"],
+  "coc.preferences.formatOnSaveFiletypes": ["css", "javascript", "javascriptreact", "dart"],
+  "languageserver": {
+    "dart": {
+      "command": "dart",
+      "args": [
+        "/usr/local/opt/dart/libexec/bin/snapshots/analysis_server.dart.snapshot",
+        "--lsp"
+      ],
+      "filetypes": ["dart"],
+      "disableDynamicRegister": true,
+      "trace.server": "verbose"
+    }
+  },
   "diagnostic-languageserver.linters": {
      "phpcs": {
         "command": "./vendor/bin/phpcs",
