@@ -7,8 +7,6 @@ Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-endwise'
 Plug 'tpope/vim-fugitive'
 Plug 'pangloss/vim-javascript'
-Plug 'moll/vim-node'
-Plug 'digitaltoad/vim-pug'
 Plug 'tpope/vim-surround'
 Plug 'google/vim-searchindex'
 Plug 'tpope/vim-sleuth'
@@ -28,7 +26,8 @@ Plug 'jparise/vim-graphql'
 Plug 'styled-components/vim-styled-components', { 'branch': 'main' }
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'dart-lang/dart-vim-plugin'
-Plug 'thosakwe/vim-flutter'
+
+Plug 'reisub0/hot-reload.vim'
 
 " Initialize plugin system
 call plug#end()
@@ -205,14 +204,6 @@ autocmd BufRead,BufNewFile *.md setlocal spell
 " Enable Mouse Operability in Neovim
 set mouse=a
 
-" Fix files with prettier, and then ESLint.
-" let g:ale_lint_on_save = 1
-" let g:ale_lint_on_text_changed = 'never'
-" let g:ale_lint_on_enter = 0
-" let g:ale_javascript_eslint_suppress_missing_config = 1
-" let g:ale_fix_on_save = 1
-" let g:ale_linters = {'javascript': []}
-
 " Coc.nvim autocompletion settings
 " Smaller updatetime for CursorHold & CursorHoldI
 set updatetime=300
@@ -223,7 +214,7 @@ nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
 
 " Use td for show documentation in preview window
-nnoremap <silent> td :call <SID>show_documentation()<CR>
+nnoremap <silent> gh :call <SID>show_documentation()<CR>
 
 function! s:show_documentation()
   if (index(['vim','help'], &filetype) >= 0)
@@ -245,6 +236,12 @@ function! s:check_back_space() abort
   let col = col('.') - 1
   return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
+
+" use `:OR` for organize import of current buffer
+command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organizeImport')
+
+" Remap for rename current word
+nmap <leader>rn <Plug>(coc-rename)
 
 " Use <c-space> for trigger completion.
 inoremap <silent><expr> <c-space> coc#refresh()
@@ -295,6 +292,8 @@ nnoremap <Leader>bl :Buffers<CR>
 nnoremap <Leader>bd :BD<CR>
 " Close current window
 nnoremap <Leader>wd :q<CR>
+" Organize imports
+nnoremap <Leader>or :OR<CR>
 " Make search project
 nnoremap <Leader>sf :Fly<CR>
 " Search word under corsor
