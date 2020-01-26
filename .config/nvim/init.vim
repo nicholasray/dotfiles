@@ -22,10 +22,8 @@ Plug 'qpkorr/vim-bufkill'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'rking/ag.vim'
 Plug 'jremmen/vim-ripgrep'
-Plug 'jparise/vim-graphql'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'dart-lang/dart-vim-plugin'
-
 Plug 'reisub0/hot-reload.vim'
 
 " Initialize plugin system
@@ -120,6 +118,8 @@ let ayucolor="mirage"
 colorscheme ayu
 set background=dark
 let g:airline_theme='ayu_mirage'
+
+
 " Make vertical borders darker and more pleasing
 hi VertSplit guibg=bg guifg=#14171F
 hi NonText guifg=#626F7F
