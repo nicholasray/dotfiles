@@ -30,7 +30,7 @@
         "sourceName": "phpcs",
         "formatLines": 1,
         "formatPattern": [
-          "^.*:(\\d+):(\\d+):\\s+(.*)\\s+-\\s+(.*)$",
+          "^.*:(\\d+):(\\d+):\\s+(.*)\\s+-\\s+(.*)(\\r|\\n)*$",
           {
             "line": 1,
             "column": 2,
