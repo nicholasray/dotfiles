@@ -65,4 +65,4 @@ fzf_grep_fly(){
 alias fly='fzf_grep_fly'
 
 alias mw='~/Development/boxwiki/.workspace'
-alias rovermap='~/Development/AndroidStudioProjects/rovermap/.workspace'
+alias rovermap='~/Development/rovermap/.workspace'
