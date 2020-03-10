@@ -25,6 +25,8 @@ Plug 'jremmen/vim-ripgrep'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'dart-lang/dart-vim-plugin'
 Plug 'reisub0/hot-reload.vim'
+Plug 'posva/vim-vue'
+
 " Initialize plugin system
 call plug#end()
 
