@@ -25,7 +25,6 @@ Plug 'jremmen/vim-ripgrep'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'dart-lang/dart-vim-plugin'
 Plug 'reisub0/hot-reload.vim'
-
 " Initialize plugin system
 call plug#end()
 
@@ -40,8 +39,6 @@ let mapleader = " "
 
 set clipboard+=unnamedplus
 set backspace=2   " Backspace deletes like most programs in insert mode
-set nobackup
-set nowritebackup
 set noswapfile    " http://robots.thoughtbot.com/post/18739402579/global-gitignore#comment-458413287
 set history=50
 set ruler         " show the cursor position all the time
@@ -121,10 +118,12 @@ let g:airline_theme='ayu_mirage'
 
 
 " Make vertical borders darker and more pleasing
+hi Normal guibg=#1E2431
 hi VertSplit guibg=bg guifg=#14171F
 hi NonText guifg=#626F7F
 hi SpecialKey guifg=#626F7F
 hi MatchParen gui=bold guibg=#626F7F
+hi SignColumn guibg=bg
 hi link QuickFixLine Normal
 
 let g:airline_extensions = ['branch', 'coc']
@@ -203,25 +202,24 @@ autocmd BufRead,BufNewFile *.md setlocal spell
 " Enable Mouse Operability in Neovim
 set mouse=a
 
-" Coc.nvim autocompletion settings
-" Smaller updatetime for CursorHold & CursorHoldI
+" Some servers have issues with backup files, see #649.
+set nobackup
+set nowritebackup
+
+" Better display for messages and avoid 'Press ENTER or type command to continue
+" from echo messages being too long
+set cmdheight=1
+
+" Having longer updatetime (default is 4000 ms = 4 s) leads to noticeable
+" delays and poor user experience.
 set updatetime=300
-" Remap keys for gotos
-nmap <silent> gd <Plug>(coc-definition)
-nmap <silent> gy <Plug>(coc-type-definition)
-nmap <silent> gi <Plug>(coc-implementation)
-nmap <silent> gr <Plug>(coc-references)
 
-" Use td for show documentation in preview window
-nnoremap <silent> gh :call <SID>show_documentation()<CR>
+" don't give |ins-completion-menu| messages.
+set shortmess+=c
 
-function! s:show_documentation()
-  if (index(['vim','help'], &filetype) >= 0)
-    execute 'h '.expand('<cword>')
-  else
-    call CocAction('doHover')
-  endif
-endfunction
+" Always show the signcolumn, otherwise it would shift the text each time
+" diagnostics appear/become resolved.
+set signcolumn=yes
 
 " Use tab for trigger completion with characters ahead and navigate.
 " Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
@@ -236,19 +234,44 @@ function! s:check_back_space() abort
   return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
 
+" Use <c-space> for trigger completion.
+inoremap <silent><expr> <c-space> coc#refresh()
+
+" Use <cr> to confirm completion, `<C-g>u` means break undo chain at current
+" position. Coc only does snippet and additional edit on confirm.
+if has('patch8.1.1068')
+  " Use `complete_info` if your (Neo)Vim version supports it.
+  inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
+else
+  imap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+endif
+
+" GoTo code navigation.
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+
+" Use gh for show documentation in preview window
+nnoremap <silent> gh :call <SID>show_documentation()<CR>
+
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  else
+    call CocAction('doHover')
+  endif
+endfunction
+
+" Highlight the symbol and its references when holding the cursor.
+autocmd CursorHold * silent call CocActionAsync('highlight')
+
 " use `:OR` for organize import of current buffer
 command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organizeImport')
 
-" Remap for rename current word
+" Symbol renaming.
 nmap <leader>rn <Plug>(coc-rename)
 
-" Use <c-space> for trigger completion.
-inoremap <silent><expr> <c-space> coc#refresh()
-" don't give |ins-completion-menu| messages.
-set shortmess+=c
-" Better display for messages and avoid 'Press ENTER or type command to continue
-" from echo messages being too long
-set cmdheight=1
 inoremap <expr> <C-j> pumvisible() ? "\<C-n>" : "\<C-j>"
 inoremap <expr> <C-k> pumvisible() ? "\<C-p>" : "\<C-k>"
 let g:coc_snippet_next = '<TAB>'

@@ -1,6 +1,5 @@
 {
   "diagnostic.enable": true,
-  "diagnostic.refreshAfterSave": true,
   "diagnostic.checkCurrentLine": true,
   "coc.preferences.colorSupport": false,
   "css.colorDecorators.enable": false,
@@ -17,7 +16,7 @@
   "prettier.disableSuccessMessage": true,
   "prettier.eslintIntegration": true,
   "prettier.requireConfig": true,
-  "coc.preferences.formatOnSaveFiletypes": ["css", "javascript", "javascriptreact", "dart"],
+  "coc.preferences.formatOnSaveFiletypes": ["css", "javascript", "javascriptreact", "dart", "vue" ],
   "flutter.provider.hot-reload": false,
   "diagnostic-languageserver.linters": {
      "phpcs": {
