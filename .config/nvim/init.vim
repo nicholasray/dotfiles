@@ -14,7 +14,8 @@ Plug '/usr/local/opt/fzf'
 Plug 'junegunn/fzf.vim'
 Plug 'junegunn/vim-easy-align'
 Plug 'mustache/vim-mustache-handlebars'
-Plug 'ayu-theme/ayu-vim'
+" Ayu made nerdtree too bright it latest commits
+Plug 'ayu-theme/ayu-vim', { 'commit': '9fafe746a966eb0b02963cbe833ef6a3ce55ba6a'}
 Plug 'mhinz/vim-startify'
 Plug 'heavenshell/vim-jsdoc'
 Plug 'vim-airline/vim-airline'
@@ -24,7 +25,7 @@ Plug 'rking/ag.vim'
 Plug 'jremmen/vim-ripgrep'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'dart-lang/dart-vim-plugin'
-Plug 'reisub0/hot-reload.vim'
+" Plug 'reisub0/hot-reload.vim'
 Plug 'posva/vim-vue'
 
 " Initialize plugin system
