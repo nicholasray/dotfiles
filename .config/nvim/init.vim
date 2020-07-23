@@ -25,8 +25,8 @@ Plug 'rking/ag.vim'
 Plug 'jremmen/vim-ripgrep'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'dart-lang/dart-vim-plugin'
-" Plug 'reisub0/hot-reload.vim'
 Plug 'posva/vim-vue'
+" Plug 'reisub0/hot-reload.vim'
 
 " Initialize plugin system
 call plug#end()
@@ -339,3 +339,7 @@ nnoremap <leader>fD :FlutterVisualDebug<cr>
 
 " Prevent Ag from opening first buffer
 ca Ag Ag!
+
+" Fix vim vue slowness
+let g:vue_pre_processors = ['scss', 'typescript']
+

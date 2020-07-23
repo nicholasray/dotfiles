@@ -13,11 +13,26 @@
   ],
   "eslint.run":"onSave",
   "eslint.autoFixOnSave": true,
+  "eslint.filetypes": ["javascript", "vue", "typescript" ],
   "prettier.disableSuccessMessage": true,
-  "prettier.eslintIntegration": true,
   "prettier.requireConfig": true,
-  "coc.preferences.formatOnSaveFiletypes": ["css", "javascript", "javascriptreact", "dart", "vue" ],
+  "prettier.disableLanguages": ["less"],
+  "vetur.format.defaultFormatter.less": "none",
+  "coc.preferences.formatOnSaveFiletypes": ["css", "typescript", "javascript", "javascriptreact", "dart",  "markdown" ],
   "flutter.provider.hot-reload": false,
+  "diagnostic-languageserver.formatters": {
+    "stylelint": {
+      "command": "./node_modules/.bin/stylelint",
+      "args": ["--fix"],
+      "rootPatterns": [".git"],
+      "isStderr": false,
+      "isStdout": true
+    }
+  },
+  "diagnostic-languageserver.formatFiletypes": {
+    "vue": "stylelint",
+    "less": "stylelint"
+  },
   "diagnostic-languageserver.linters": {
      "phpcs": {
         "command": "./vendor/bin/phpcs",
@@ -41,9 +56,36 @@
           "error": "error",
           "warning": "warning"
         }
+      },
+      "stylelint": {
+        "command": "./node_modules/.bin/stylelint",
+        "rootPatterns": [
+          ".git"
+        ],
+        "debounce": 100,
+        "args": [
+          "--formatter",
+          "json",
+          "--stdin-filename",
+          "%filepath"
+        ],
+        "sourceName": "stylelint",
+        "parseJson": {
+          "errorsRoot": "[0].warnings",
+          "line": "line",
+          "column": "column",
+          "message": "${text}",
+          "security": "severity"
+        },
+        "securities": {
+          "error": "error",
+          "warning": "warning"
+        }
       }
   },
   "diagnostic-languageserver.filetypes": {
-    "php": "phpcs"
+    "php": "phpcs",
+    "vue": "stylelint",
+    "less": "stylelint"
   }
 }
