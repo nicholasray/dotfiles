@@ -18,15 +18,14 @@ Plug 'mustache/vim-mustache-handlebars'
 Plug 'ayu-theme/ayu-vim', { 'commit': '9fafe746a966eb0b02963cbe833ef6a3ce55ba6a'}
 Plug 'mhinz/vim-startify'
 Plug 'heavenshell/vim-jsdoc'
-Plug 'vim-airline/vim-airline'
 Plug 'qpkorr/vim-bufkill'
-Plug 'vim-airline/vim-airline-themes'
 Plug 'rking/ag.vim'
 Plug 'jremmen/vim-ripgrep'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'dart-lang/dart-vim-plugin'
+Plug 'reisub0/hot-reload.vim'
 Plug 'posva/vim-vue'
-" Plug 'reisub0/hot-reload.vim'
+Plug 'reisub0/hot-reload.vim'
 
 " Initialize plugin system
 call plug#end()
@@ -73,9 +72,7 @@ set listchars=tab:»·,trail:·,eol:↵,extends:↷,precedes:↶
 set nojoinspaces
 
 " Make it obvious where 80 characters is
-set textwidth=80
-autocmd bufreadpre *.pug setlocal textwidth=0
-set colorcolumn=+1
+set colorcolumn=81
 
 " Make git commit messages be 72 characters wide
 au FileType gitcommit set tw=72
@@ -117,7 +114,6 @@ set cursorline
 let ayucolor="mirage"
 colorscheme ayu
 set background=dark
-let g:airline_theme='ayu_mirage'
 
 
 " Make vertical borders darker and more pleasing
@@ -128,9 +124,6 @@ hi SpecialKey guifg=#626F7F
 hi MatchParen gui=bold guibg=#626F7F
 hi SignColumn guibg=bg
 hi link QuickFixLine Normal
-
-let g:airline_extensions = ['branch', 'coc']
-let g:airline_highlighting_cache = 0
 
 " Open up Startify before NERDTree so that startify will work
 autocmd VimEnter *
@@ -262,6 +255,23 @@ autocmd CursorHold * silent call CocActionAsync('highlight')
 
 " use `:OR` for organize import of current buffer
 command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organizeImport')
+
+" Add (Neo)Vim's native statusline support.
+" NOTE: Please see `:h coc-status` for integrations with external plugins that
+" provide custom statusline: lightline.vim, vim-airline.
+
+set statusline=
+set statusline+=%#PmenuSel#
+set statusline+=%#LineNr#
+set statusline+=\ %f
+set statusline+=%m\
+set statusline+=%=
+set statusline+=%#CursorColumn#
+set statusline+=\ %y
+set statusline+=\[%{&fileformat}\]
+set statusline+=\ %l:%c
+set statusline+=\ %{coc#status()}%{get(b:,'coc_current_function','')}
+set statusline+=\ 
 
 " Symbol renaming.
 nmap <leader>rn <Plug>(coc-rename)

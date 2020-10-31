@@ -8,6 +8,7 @@
   "coc.source.file.ignoreHidden": false,
   "javascript.validate.enable": false,
   "javascript.updateImportsOnFileMove.enable": false,
+  "javascript.format.enabled": false,
   "coc.source.emoji.filetypes": [
     "gitcommit"
   ],
@@ -16,10 +17,11 @@
   "eslint.filetypes": ["javascript", "vue", "typescript" ],
   "prettier.disableSuccessMessage": true,
   "prettier.requireConfig": true,
-  "prettier.disableLanguages": ["less"],
+  "prettier.disableLanguages": ["less", "javascript"],
   "vetur.format.defaultFormatter.less": "none",
-  "coc.preferences.formatOnSaveFiletypes": ["css", "typescript", "javascript", "javascriptreact", "dart",  "markdown" ],
+  "coc.preferences.formatOnSaveFiletypes": ["css", "typescript", "javascript", "javascriptreact", "dart", "markdown", "json" ],
   "flutter.provider.hot-reload": false,
+  "flutter.provider.enableSnippet": true,
   "diagnostic-languageserver.formatters": {
     "stylelint": {
       "command": "./node_modules/.bin/stylelint",
