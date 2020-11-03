@@ -259,12 +259,9 @@ command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organize
 " Add (Neo)Vim's native statusline support.
 " NOTE: Please see `:h coc-status` for integrations with external plugins that
 " provide custom statusline: lightline.vim, vim-airline.
-
 set statusline=
-set statusline+=%#PmenuSel#
-set statusline+=%#LineNr#
 set statusline+=\ %f
-set statusline+=%m\
+set statusline+=%m
 set statusline+=%=
 set statusline+=%#CursorColumn#
 set statusline+=\ %y
